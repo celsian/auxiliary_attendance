@@ -55,7 +55,8 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Controls"  %></li>
+            <li><%= link_to "Sessions", class_sessions_path %></li>
+            <li><%= link_to "Students"  %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
