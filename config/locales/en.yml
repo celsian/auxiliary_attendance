@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      class_session: "Session"
+    attributes:
+      class_session:
+        name: "Session Name:"
