@@ -5,7 +5,7 @@
         <B>Your Sessions:</B>
       </P>
     </div>
-    <div class="col-md-3" style="text-align:right;">
+    <div class="col-md-3" style="text-align:right;font-size:xx-large;">
       <%= link_to "New Session", new_class_session_path(), class: "btn btn-primary" %>
     </div>
   </div>
@@ -17,7 +17,7 @@
         </tr>
         <% @class_sessions_open.each do |session| %>
         <tr>
-          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at %></td><td><%= session.end_time ||= "Note Yet Closed" %></td>
+          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%l:%M:%S %p - %a %m-%d-%Y") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p - %a %m-%d-%Y") : "Note Yet Closed" %></td>
         </tr>
         <% end %>
       </table>
@@ -28,7 +28,7 @@
           <th style="width: 50%;">Closed Sessions:</th><th>Start Time:</th><th>End Time:</th>
         </tr>
         <tr>
-          <td>Test</td><td>Then</td><td>Now</td>
+          <td>A Closed Session</td><td>Then</td><td>Now</td>
         </tr>
       </table>
     </div>
