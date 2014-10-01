@@ -1,1 +1,44 @@
-Test
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9" style="font-size:x-large;">
+      <P>
+        <B>Session: <%= @class_session.name %></B>
+      </P>
+    </div>
+    <div class="col-md-3" style="text-align:right;font-size:x-large;">
+      <%= link_to "Close Session", new_class_session_path(), class: "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="font-size:large;">
+    <%= form_for @class_session, :html => {class: "form-horizontal"} do |f| %>
+      <div class="form-group">
+        <div class="col-sm-2" style="text-align:right;">
+          <%= f.label :name %>
+        </div>
+        <div class="col-sm-2">
+          <%= f.text_field :name, class: "form-control", autofocus: true, placeholder: "ID Number" %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.text_field :name, class: "form-control", autofocus: true, placeholder: "Reason" %>
+        </div>
+        <div class="col-sm-1">
+          <%= f.submit class: 'btn btn-primary btn-sm'  %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <tr>
+          <th>Student:</th><th>Reason:</th><th>Arrival Time:</th><th>Departure Time:</th>
+        </tr>
+        <tr>
+          <td>Danielle Kimberely-Ocho Cinco</td><td>Music and other awesome ventures.</td><td>Then</td><td>Now</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
