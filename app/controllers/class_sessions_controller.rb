@@ -32,6 +32,10 @@ class ClassSessionsController < ApplicationController
     end
   end
 
+  def destroy
+
+  end
+
   private
 
   def class_session_params
