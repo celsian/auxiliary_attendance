@@ -27,3 +27,4 @@ en:
     attributes:
       class_session:
         name: "Session Name:"
+        sign_in_out: "Sign In/Out"
