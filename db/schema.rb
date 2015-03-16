@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929195103) do
+ActiveRecord::Schema.define(version: 20150316211339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "class_session_students", force: true do |t|
+    t.integer  "class_session_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "class_session_students", ["class_session_id"], name: "index_class_session_students_on_class_session_id", using: :btree
+  add_index "class_session_students", ["student_id"], name: "index_class_session_students_on_student_id", using: :btree
 
   create_table "class_sessions", force: true do |t|
     t.string   "name"
@@ -28,11 +38,10 @@ ActiveRecord::Schema.define(version: 20140929195103) do
 
   add_index "class_sessions", ["user_id"], name: "index_class_sessions_on_user_id", using: :btree
 
-  create_table "sessions", force: true do |t|
-    t.string   "name"
-    t.boolean  "closed",       default: false
-    t.string   "participants"
-    t.datetime "end_time"
+  create_table "students", force: true do |t|
+    t.string   "id_number"
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
