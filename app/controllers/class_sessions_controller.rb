@@ -32,6 +32,13 @@ class ClassSessionsController < ApplicationController
     end
   end
 
+  def close_session
+    @class_session = ClassSession.find(params[:id])
+    @class_session.close
+
+    redirect_to class_sessions_path
+  end
+
   def destroy
 
   end
