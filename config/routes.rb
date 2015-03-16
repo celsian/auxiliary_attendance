@@ -3,6 +3,7 @@ AuxiliaryAttendance::Application.routes.draw do
   root 'welcome#index'
 
   resources :class_sessions
+  get "/class_sessions/:id/close_session", to: "class_sessions#close_session", as: "close_session"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
