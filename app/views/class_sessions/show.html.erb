@@ -12,22 +12,25 @@
   </div>
   <div class="row">
     <div class="col-md-12" style="font-size:large;">
-    <%= form_for @class_session, :html => {class: "form-horizontal"} do |f| %>
+
+    <%= form_for @class_session_student, url: {action: "director", controller: "class_session_students"}, :html => {class: "form-horizontal"} do |f| %>
       <div class="form-group">
         <div class="col-sm-2" style="text-align:left;">
           <%= f.label :sign_in_out %>
         </div>
         <div class="col-sm-2">
-          <%= f.text_field :name, class: "form-control", autofocus: true, placeholder: "ID Number" %>
+          <%= f.text_field :student_id_number, autocomplete: :off, class: "form-control", autofocus: true, placeholder: "ID Number" %>
         </div>
         <div class="col-sm-4">
-          <%= f.text_field :name, class: "form-control", placeholder: "Reason" %>
+          <%= f.text_field :reason, autocomplete: :off, class: "form-control", placeholder: "Reason" %>
         </div>
+          <%= f.hidden_field :class_session_id, value: @class_session.id %>
         <div class="col-sm-1">
-          <%= f.submit class: 'btn btn-primary btn-sm'  %>
+          <%= f.submit "Sign In/Out", class: 'btn btn-primary btn-sm'  %>
         </div>
       </div>
     <% end %>
+
     </div>
   </div>
 <% end %>
@@ -37,9 +40,11 @@
         <tr>
           <th>Student:</th><th>Reason:</th><th>Arrival Time:</th><th>Departure Time:</th>
         </tr>
-        <tr>
-          <td>Danielle Kimberely-Ocho Cinco</td><td>Music and other awesome ventures.</td><td>Then</td><td>Now</td>
-        </tr>
+        <% @class_session.class_session_students.each do |class_session_student| %>
+          <tr>
+            <td><%= class_session_student.student.first_name + " " + class_session_student.student.last_name %></td><td><%= class_session_student.reason %></td><td><%= class_session_student.start_time.strftime("%l:%M%P") %></td><td><%= class_session_student.end_time ? class_session_student.end_time.strftime("%l:%M%P") : "Present" %></td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>
