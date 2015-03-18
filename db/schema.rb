@@ -19,6 +19,10 @@ ActiveRecord::Schema.define(version: 20150316211339) do
   create_table "class_session_students", force: true do |t|
     t.integer  "class_session_id"
     t.integer  "student_id"
+    t.string   "student_id_number"
+    t.string   "reason"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
