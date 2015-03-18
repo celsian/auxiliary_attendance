@@ -9,6 +9,7 @@ class ClassSessionsController < ApplicationController
 
   def show
     @class_session = ClassSession.find(params[:id])
+    @class_session_student = ClassSessionStudent.new
   end
 
   def new
