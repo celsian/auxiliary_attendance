@@ -28,3 +28,5 @@ en:
       class_session:
         name: "Session Name:"
         sign_in_out: "Sign In/Out"
+      class_session_student:
+        sign_in_out: "Sign In/Out:"
