@@ -7,7 +7,7 @@
     </div>
   <% if !@class_session.closed %>
     <div class="col-md-3" style="text-align:right;font-size:x-large;">
-      <%= link_to "Close Session", close_session_path(), class: "btn btn-primary" %>
+      <%= link_to "Close Session", close_session_path(), class: "btn btn-primary", data: { confirm: "Are you sure you want to close this class session?" } %>
     </div>
   </div>
   <div class="row">
