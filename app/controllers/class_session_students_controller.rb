@@ -16,16 +16,12 @@ class ClassSessionStudentsController < ApplicationController
     @class_session_student.student = @class_session_student.find_student
 
     if @class_session_student.save
-      flash[:success] = "#{@class_session_student.student.first_name} #{@class_session_student.student.last_name} - #{@class_session_student.student.id_number} has joined the session."
+      flash[:success] = "#{@class_session_student.student.first_name} #{@class_session_student.student.last_name} has joined the session."
       redirect_to session.delete(:return_to)
     else
       flash[:error] = "Error: #{@class_session_student.error_messages}"
       redirect_to session.delete(:return_to)
     end
-  end
-
-  def create
-
   end
 
   def leave_session
@@ -34,7 +30,7 @@ class ClassSessionStudentsController < ApplicationController
     @class_session_student = Student.find_by(id_number: class_session_student_params[:student_id_number]).class_session_students.first
     
     if @class_session_student.update_attributes(end_time: Time.now)
-      flash[:success] = "#{@class_session_student.student.first_name} #{@class_session_student.student.last_name} - #{@class_session_student.student.id_number} has left the session."
+      flash[:success] = "#{@class_session_student.student.first_name} #{@class_session_student.student.last_name} has left the session."
       redirect_to session.delete(:return_to)
     else
       flash[:error] = "Error: #{@class_session_student.error_messages}"
