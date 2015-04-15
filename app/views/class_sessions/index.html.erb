@@ -13,11 +13,11 @@
     <div class="col-md-12">
       <table class="table table-striped">
         <tr class="success">
-          <th style="width: 50%;">Open Sessions:</th><th>Start Time:</th><th>End Time:</th>
+          <th style="width: 50%;">Open Sessions:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
         </tr>
         <% @class_sessions_open.each do |session| %>
         <tr>
-          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%a %m-%d-%Y - %l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%a %m-%d-%Y - %l:%M:%S %p") : "Note Yet Closed" %></td>
+          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%a %m/%d/%Y") %></td><td><%= session.created_at.strftime("%l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "Note Yet Closed" %></td>
         </tr>
         <% end %>
       </table>
@@ -25,11 +25,11 @@
     <div class="col-md-12">
             <table class="table table-striped">
         <tr>
-          <th style="width: 50%;">Closed Sessions:</th><th>Start Time:</th><th>End Time:</th>
+          <th style="width: 50%;">Closed Sessions:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
         </tr>
         <% @class_sessions_closed.each do |session| %>
         <tr>
-          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%a %m-%d-%Y - %l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%a %m-%d-%Y - %l:%M:%S %p") : "Note Yet Closed" %></td>
+          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%a %m/%d/%Y") %></td><td><%= session.created_at.strftime("%l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "Note Yet Closed" %></td>
         </tr>
         <% end %>
       </table>
