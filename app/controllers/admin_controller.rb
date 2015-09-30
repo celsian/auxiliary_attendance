@@ -7,9 +7,13 @@ class AdminController < ApplicationController
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = "@"
     end
-    @users = User.search(params[:q])
-    @teachers = User.where(teacher: true)
-  end
+    results = User.search(params[:q], params[:s])
+    @users = results.last
+    @user_pages = User.user_pages(results.first)
+
+    @teachers = User.teachers(params[:t])
+    @teacher_pages = User.teacher_pages
+  end  
 
   def add_teacher
     user = User.find(params[:id])
