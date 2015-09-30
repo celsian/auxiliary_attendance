@@ -35,6 +35,25 @@
       <% end %>
       </table>
     </div>
+    <nav>
+      <ul class="pagination">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <% if @user_pages %>
+          <% 1.upto(@user_pages) do |i| %>
+            <li><%= link_to i, teacher_editor_path(q: params[:q], s: (i-1)) %></li>
+          <% end %>
+        <% end %>
+          <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
     <% end %>
   </div>
 
