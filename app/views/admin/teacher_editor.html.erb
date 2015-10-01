@@ -1,13 +1,19 @@
-<h3>Search for Users by E-Mail:</h3>
-<%= form_tag teacher_editor_path, :method => :get, :class => "form-search" do %>
-  <%= text_field_tag :q, '',size: 30, autofocus: true %>
-  <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
-<% end %>
-<br>
-
 <div class="row">
   <div class="col-md-6">
-    <% if @users.length > 0 %>
+    <h3><B>Search for Users by E-Mail:</B></h3>
+    <%= form_tag teacher_editor_path, :method => :get, :class => "form-search" do %>
+      <%= text_field_tag :q, '',size: 30, autofocus: true %>
+      <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
+    <% end %>
+  </div>
+  <div class="col-md-6" align="right">
+    <br>
+    <h2><B>Teacher Editor</B></h2>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-6">
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading"><h3 class="panel-title"><B><CENTER>Add Rights</CENTER></B></h3></div>
@@ -19,6 +25,7 @@
             <th width=70%>E-Mail</th><th>Teacher</th>
           </tr>
         </thead>
+    <% if @users.length > 0 %>
       <% @users.each do |user| %>
         <tr>
           <td>
@@ -33,6 +40,15 @@
           </td>
         </tr>
       <% end %>
+    <% else %>
+      <tr>
+        <td>
+        Sorry, no records match your query.
+        </td>
+        <td>
+        </td>
+      </tr>
+    <% end %>
       </table>
     </div>
 <!-- PAGINATION STARTS HERE -->
@@ -41,7 +57,7 @@
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", teacher_editor_path(q: params[:q], s: params[:s].to_i-1) %></li>
+            <li><%= link_to "«", teacher_editor_path(params.merge(s: params[:s].to_i-1)) %></li>
           <% end %>
         <% if @user_pages %>
           <% 1.upto(@user_pages) do |i| %>
@@ -50,7 +66,7 @@
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, teacher_editor_path(q: params[:q], s: (i-1)) %>
+              <%= link_to i, teacher_editor_path(params.merge(s: i-1)) %>
           <% end %>
               </li>
         <% end %>
@@ -58,13 +74,12 @@
             <% if params[:s].to_i == @user_pages-1 || @user_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", teacher_editor_path(q: params[:q], s: params[:s].to_i+1) %>
+              <%= link_to "»", teacher_editor_path(params.merge(s: params[:s].to_i+1)) %>
             <% end %>
         </li>
       </ul>
     </nav>
 <!-- PAGINATION ENDs HERE -->
-    <% end %>
   </div>
 
   <div class="col-md-6">
