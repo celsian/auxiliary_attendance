@@ -28,6 +28,12 @@ class User < ActiveRecord::Base
     teachers[0..USERS_PER_PAGE-1]
   end
 
+  def self.admins page_index
+    admins = User.where(admin: true)
+    admins = admins[(User.page page_index)..-1]
+    admins[0..USERS_PER_PAGE-1]
+  end
+
   def formatted_email
     if email.length > 50
       return email[0..(50-(email.length-email.index("@")))]+"..."+email[email.index("@")..-1]
@@ -40,9 +46,9 @@ class User < ActiveRecord::Base
     return User.where(teacher: true).count
   end
 
-  # def self.admin_count
-  #   return User.where(admin: true).count
-  # end
+  def self.admin_count
+    return User.where(admin: true).count
+  end
 
   def self.user_pages user_count
     (user_count/USERS_PER_PAGE).ceil
