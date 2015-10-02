@@ -76,8 +76,8 @@ class AdminController < ApplicationController
 
   def import
     if params[:file]
-      Student.import(params[:file])
-      redirect_to import_path, flash: {success: "Students imported."}
+      record_changes = Student.import(params[:file])
+      redirect_to import_path, flash: {success: "#{record_changes[:success]} Students were imported or updated. #{record_changes[:failure]} failed."}
     end
   end
 
