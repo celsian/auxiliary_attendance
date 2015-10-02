@@ -1,4 +1,7 @@
 class ClassSessionsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_teacher
+
   def index
     if current_user
       @class_sessions_open = ClassSession.where(user: current_user, closed: false)
@@ -56,6 +59,12 @@ class ClassSessionsController < ApplicationController
 
   def class_session_params
     params.require(:class_session).permit(:name)
+  end
+
+  def require_admin
+    unless current_user.teacher == true
+      redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
+    end
   end
 
 end
