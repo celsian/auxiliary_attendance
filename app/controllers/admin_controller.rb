@@ -77,7 +77,7 @@ class AdminController < ApplicationController
   def import
     if params[:file]
       Student.import(params[:file])
-      redirect_to import_path, flash: {success: "Students & Devices imported."}
+      redirect_to import_path, flash: {success: "Students imported."}
     end
   end
 
