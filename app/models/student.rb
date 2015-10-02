@@ -8,13 +8,19 @@ class Student < ActiveRecord::Base
   has_many :class_sessions, through: :class_session_students
 
   def self.import(file)
+    record_changes = {success: 0, failure: 0}
     CSV.foreach(file.path, headers: true) do |row|
 
       student = find_by(id_number: row["id_number"]) || Student.new
 
       student.attributes = row.to_hash.slice("id_number", "first_name", "last_name")
 
-      student.save
+      if student.save
+        record_changes[:success] += 1
+      else
+        record_changes[:failure] += 1
+      end
     end #CSV
+    return record_changes
   end #def end.
 end
