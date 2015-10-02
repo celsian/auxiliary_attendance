@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-md-12" align="center">
+  <div class="col-md-6" align="center">
     <B><H2>Import:</H2></B>
-    <div class="col-md-12">
+    <div class="col-md-12" align="left">
       <P>Students have three values: id_number, first_name & last name. All values are required for import. Your .csv should have three populated columns with the first row of each column being one of the three values. Example:<br>
       <br>
       <center>
         <%= image_tag "excel.png" %>
+        <br>
         <br>
         <br>
         <%= form_tag import_submit_path, multipart: true do %>
