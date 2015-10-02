@@ -61,7 +61,7 @@ class ClassSessionsController < ApplicationController
     params.require(:class_session).permit(:name)
   end
 
-  def require_admin
+  def require_teacher
     unless current_user.teacher == true
       redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
     end
