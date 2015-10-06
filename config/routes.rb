@@ -19,7 +19,9 @@ AuxiliaryAttendance::Application.routes.draw do
   get "/admin/admin_editor", to: "admin#admin_editor", as: "admin_editor"
   get "/admin/user/:id/add_admin/:q", to: "admin#add_admin", as: "add_admin"
   get "/admin/user/:id/remove_admin/:q", to: "admin#remove_admin", as: "remove_admin"
-  get "/admin/import", to: "admin#import", as: "import"
-  post "/admin/import/submit", to: "admin#import", as: "import_submit"
+
+  resources :students, only: [:index, :edit, :update]
+  get "/student/import", to: "student#import", as: "import"
+  post "/student/import/submit", to: "student#import", as: "import_submit"
 
 end
