@@ -7,7 +7,6 @@ class AdminController < ApplicationController
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = "@"
     end
-
     results = User.search(params[:q], params[:s])
     @users = results.last
     @user_pages = User.user_pages(results.first)
