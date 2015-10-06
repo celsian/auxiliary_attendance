@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   def self.search query, page_index
     query = query.downcase
-    result = where("email LIKE :query", query: "%#{query}%")
+    result = where(sanitize_sql_array(["email LIKE :query", query: "%#{query}%"]))
     result_count = result.count
     result = result[(User.page page_index)..-1]
     return [result_count, result[0..USERS_PER_PAGE-1]]
