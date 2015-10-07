@@ -21,7 +21,8 @@ AuxiliaryAttendance::Application.routes.draw do
   get "/admin/user/:id/remove_admin/:q", to: "admin#remove_admin", as: "remove_admin"
 
   resources :students, only: [:index, :edit, :update]
-  get "/student/import", to: "student#import", as: "import"
-  post "/student/import/submit", to: "student#import", as: "import_submit"
+  get "/student/import", to: "students#import", as: "import"
+  post "/student/import/submit", to: "students#import", as: "import_submit"
+  get "/student/:id/disable", to: "students#disable", as: "student_disable"
 
 end
