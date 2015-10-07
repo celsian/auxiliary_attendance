@@ -7,9 +7,11 @@ class Student < ActiveRecord::Base
   has_many :class_session_students
   has_many :class_sessions, through: :class_session_students
 
+  default_scope { order("first_name ASC") }
+
   def self.search query, page_index
     query = query.downcase
-    result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"]))
+    result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: true)
     result_count = result.count
     result = result[(Student.page page_index)..-1]
     return [result_count, result[0..User::USERS_PER_PAGE-1]]
