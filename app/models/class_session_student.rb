@@ -9,8 +9,12 @@ class ClassSessionStudent < ActiveRecord::Base
   default_scope { order("created_at desc") }
 
   def student_exists
-    if student_id == nil
-      errors.add(:base, "Student \"#{student_id_number}\" does not exist or is disabled.")
+    if student_id == nil || (Student.find(student_id).enabled) == false
+      if student_id == nil
+        errors.add(:base, "Student \"#{student_id_number}\" does not exist.")
+      else
+        errors.add(:base, "Student \"#{student_id_number}\" is disabled, please contact an Administrator.")
+      end
     end
   end
 
