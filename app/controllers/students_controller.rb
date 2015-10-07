@@ -14,11 +14,16 @@ class StudentsController < ApplicationController
   end
 
   def update
-
+    student = Student.find(params[:id])
+    if student.update student_params
+      redirect_to students_path, flash: {success: "Student was updated."}
+    else
+      render :edit
+    end
   end
 
   def disable
-    @student.find(params[:id])
+    @student = Student.find(params[:id])
     @student.enabled = false
     if @student.save
       redirect_to students_path, flash: {success: "Student with ID ##{@student.id_number} is disabled."}
