@@ -10,7 +10,7 @@ class ClassSessionStudent < ActiveRecord::Base
 
   def student_exists
     if student_id == nil
-      errors.add(:base, "Student \"#{student_id_number}\" does not exist.")
+      errors.add(:base, "Student \"#{student_id_number}\" does not exist or is disabled.")
     end
   end
 
@@ -27,7 +27,6 @@ class ClassSessionStudent < ActiveRecord::Base
         most_recent_join_table = Student.find_by(id_number: student_id_number).class_session_students.first
 
         if most_recent_join_table.end_time == nil && most_recent_join_table.id != self.id
-          binding.pry
           errors.add(:base, "Student has not signed out of the previous class <b>\"#{most_recent_join_table.class_session.name}\"</b> with teacher <b>\"#{most_recent_join_table.class_session.user.email}\"</b>")
         end
       end
