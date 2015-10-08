@@ -1,9 +1,23 @@
 <div class="row">
   <div class="col-md-6">
     <h3><B>Search for Students:</B></h3>
-    <%= form_tag students_path, :method => :get, :class => "form-search" do %>
-      <%= text_field_tag :q, '',size: 30, autofocus: true %>
-      <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="form-inline">
+      <%= form_tag(students_path, :method => :get, :class => "form-search") do %>
+        <%= text_field_tag :q, "", class: "form-control", placeholder: "Name or ID Number", autofocus: true %>
+        <%= hidden_field_tag :enabled, params[:enabled] %>
+        <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-sm-1">
+    <% if params[:enabled] == "0" %>
+      <%= link_to "Show Enabled Students", students_path(params.merge(enabled: "1")), class: 'btn btn-sm btn-success' %>
+    <% else %>
+      <%= link_to "Show Disabled Students", students_path(params.merge(enabled: "0")), class: 'btn btn-sm btn-danger' %>
     <% end %>
   </div>
 </div>
