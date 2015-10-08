@@ -16,6 +16,27 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
 
+    final_params = {}
+
+    if user_params[:password] == ""
+      final_params[:email] = user_params[:email]
+    else
+      final_params = user_params
+    end
+
+    if @user.update final_params
+      redirect_to user_search_path, flash: { success: "#{@user.email} has been updated." }
+    else
+      flash[:error] = "Error: There was a problem updating #{@user.email}."
+      render :edit
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end
