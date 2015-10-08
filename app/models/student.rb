@@ -9,9 +9,9 @@ class Student < ActiveRecord::Base
 
   default_scope { order("first_name ASC") }
 
-  def self.search query, page_index
+  def self.search query, page_index, enabled_bool
     query = query.downcase
-    result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: true)
+    result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: enabled_bool)
     result_count = result.count
     result = result[(Student.page page_index)..-1]
     return [result_count, result[0..User::USERS_PER_PAGE-1]]
@@ -23,6 +23,14 @@ class Student < ActiveRecord::Base
 
   def self.student_pages user_count
     (user_count/User::USERS_PER_PAGE).ceil
+  end
+
+  def self.to_bool bool
+    if bool == "0"
+      return false
+    else
+      return true
+    end
   end
 
   def self.import(file)
