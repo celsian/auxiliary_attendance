@@ -23,6 +23,6 @@ AuxiliaryAttendance::Application.routes.draw do
   resources :students, only: [:index, :edit, :update]
   get "/student/import", to: "students#import", as: "import"
   post "/student/import/submit", to: "students#import", as: "import_submit"
-  get "/student/:id/disable", to: "students#disable", as: "student_disable"
+  get "/student/:id/enable_disable", to: "students#enable_disable", as: "student_enable_disable"
 
 end
