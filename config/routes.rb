@@ -19,6 +19,9 @@ AuxiliaryAttendance::Application.routes.draw do
   get "/admin/admin_editor", to: "admin#admin_editor", as: "admin_editor"
   get "/admin/user/:id/add_admin/:q", to: "admin#add_admin", as: "add_admin"
   get "/admin/user/:id/remove_admin/:q", to: "admin#remove_admin", as: "remove_admin"
+  
+  resources :users
+  get "/user_search", to: "users#user_search", as: "user_search"
 
   resources :students, only: [:index, :edit, :update]
   get "/student/import", to: "students#import", as: "import"
