@@ -4,14 +4,22 @@ class StudentsController < ApplicationController
       params[:q] = ""
     end
 
-    results = Student.search(params[:q], params[:s])
+    results = Student.search(params[:q], params[:s], Student.to_bool(params[:enabled]))
+
     @student_pages = Student.student_pages(results.first)
     @students = results.last
   end
 
   def edit
     @student = Student.find(params[:id])
-  end
+    if @student.enabled
+      @student_action_word = "Disable"
+      @student_action_class = "danger"
+    else
+      @student_action_word = "Enable"
+      @student_action_class = "success"
+    end
+  end 
 
   def update
     student = Student.find(params[:id])
@@ -19,6 +27,17 @@ class StudentsController < ApplicationController
       redirect_to students_path, flash: {success: "Student was updated."}
     else
       render :edit
+    end
+  end
+
+  def enable_disable
+    @student = Student.find(params[:id])
+
+
+    @student.enabled = !@student.enabled
+    if @student.save
+      @student.enabled ? action_word = "enabled" : action_word = "disabled"
+      redirect_to students_path, flash: {success: "Student with ID ##{@student.id_number} has been #{action_word}."}
     end
   end
 
