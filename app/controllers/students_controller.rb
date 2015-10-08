@@ -33,7 +33,6 @@ class StudentsController < ApplicationController
   def enable_disable
     @student = Student.find(params[:id])
 
-
     @student.enabled = !@student.enabled
     if @student.save
       @student.enabled ? action_word = "enabled" : action_word = "disabled"
