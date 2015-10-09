@@ -29,8 +29,7 @@ class UsersController < ApplicationController
     if @user.update final_params
       redirect_to user_search_path, flash: { success: "#{@user.email} has been updated." }
     else
-      flash[:error] = "Error: There was a problem updating #{@user.email}."
-      render :edit
+      redirect_to edit_user_path(@user), flash: { error: "Error: #{@user.error_messages}" }
     end
   end
 
