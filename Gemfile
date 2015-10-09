@@ -15,6 +15,10 @@ gem 'turbolinks'
 # gem 'sidekiq'
 # gem 'sinatra', '>= 1.3.0', :require => nil
 
+#For statistical analysis
+gem "chartkick"
+gem 'groupdate'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
