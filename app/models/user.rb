@@ -10,6 +10,14 @@ class User < ActiveRecord::Base
 
   USERS_PER_PAGE = 10.0
 
+  def error_messages
+    messages = ""
+    errors.full_messages.each do |message|
+      messages += message + "."
+    end
+    messages
+  end
+
   def self.search query, page_index
     query = query.downcase
     result = where(sanitize_sql_array(["email LIKE :query", query: "%#{query}%"]))
