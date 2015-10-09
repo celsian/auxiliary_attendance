@@ -9,6 +9,14 @@ class Student < ActiveRecord::Base
 
   default_scope { order("first_name ASC") }
 
+  def error_messages
+    messages = ""
+    errors.full_messages.each do |message|
+      messages += message + "."
+    end
+    messages
+  end
+
   def self.search query, page_index, enabled_bool
     query = query.downcase
     result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: enabled_bool)
