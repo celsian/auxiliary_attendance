@@ -26,7 +26,7 @@ class StudentsController < ApplicationController
     if @student.update student_params
       redirect_to students_path, flash: {success: "Student was updated."}
     else
-      flash[:error] = "Error: #{@ student.error_messages}"
+      flash[:error] = "Error: #{@student.error_messages}"
       render :edit
     end
   end
@@ -61,5 +61,4 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:first_name, :last_name, :id_number)
   end
-
 end
