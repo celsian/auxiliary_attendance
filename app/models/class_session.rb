@@ -24,7 +24,7 @@ class ClassSession < ActiveRecord::Base
 
     class_session_students.each do |css|
       if css.start_time && css.start_time > time
-        time = css.stat_time
+        time = css.start_time
       end
       if css.end_time && css.end_time > time
         time = css.end_time
