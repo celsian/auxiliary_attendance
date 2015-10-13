@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<% provide(:title, 'Welcome') %>
+<% provide(:title, 'Admin') %>
 <% provide(:jumbotron, '
   <h1>Admin: <small>Control Panel</small></h1>
 '.html_safe)%>
@@ -35,7 +35,7 @@
     <div class="col-md-4">
       <h2>Statistics</h2>
       <p>Show statistical analysis for all tutorials.</p>
-      <p><%= link_to "Stats »", root_path, class: "btn btn-default", data: { no_turbolink: true } %></p>
+      <p><%= link_to "Stats »", stats_path, class: "btn btn-default", data: { no_turbolink: true } %></p>
     </div>
   </div>
 </div>
