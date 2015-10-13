@@ -1,0 +1,25 @@
+<div class="container-fluid">
+<% provide(:title, 'Stats') %>
+<% provide(:jumbotron, '
+  <h1>Statistics: <small>Teacher & Student Analysis</small></h1>
+'.html_safe)%>
+  
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Teachers</h2>
+      <p>Statistics by teacher.</p>
+      <p><%= link_to "Teacher Stats »", teacher_editor_path, class: "btn btn-default" %></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Students</h2>
+      <p>Statistics by student.</p>
+      <p><%= link_to "Students Stats »", user_search_path, class: "btn btn-default" %></p>
+    </div>
+    <div class="col-md-4">
+      <h2>General</h2>
+      <p>Generalized school statistics.</p>
+      <p><%= link_to "General Stats »", user_search_path, class: "btn btn-default" %></p>
+    </div>
+  </div>
+</div>
+
