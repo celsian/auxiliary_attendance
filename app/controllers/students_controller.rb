@@ -10,6 +10,10 @@ class StudentsController < ApplicationController
     @students = results.last
   end
 
+  def stats
+
+  end
+
   def edit
     @student = Student.find(params[:id])
     if @student.enabled
