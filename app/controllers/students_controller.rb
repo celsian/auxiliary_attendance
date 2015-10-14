@@ -11,6 +11,8 @@ class StudentsController < ApplicationController
   end
 
   def stats
+    @student = Student.find(params[:id])
+    @months = @student.class_session_timeline
 
   end
 
