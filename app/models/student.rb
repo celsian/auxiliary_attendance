@@ -17,6 +17,35 @@ class Student < ActiveRecord::Base
     messages
   end
 
+  def class_session_timeline
+    all_months = []
+
+    class_sessions_results = class_sessions.reorder(created_at: :asc)
+    if class_sessions_results.length > 0
+      start_month = class_sessions_results.first.created_at.at_beginning_of_month
+      end_month = class_sessions_results.last.created_at.at_beginning_of_month
+
+      unless end_month == start_month
+        all_months << end_month
+        end_month = end_month-1.month
+      end
+
+      all_months << start_month
+
+      return all_months
+    end
+
+    return nil
+  end
+
+  def self.calendar_start day
+    day-(day.wday).days
+  end
+
+  def self.calendar_end day
+    day+(6-day.wday).days
+  end
+
   def self.search query, page_index, enabled_bool
     query = query.downcase
     result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: enabled_bool)
