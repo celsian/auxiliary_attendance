@@ -13,6 +13,11 @@ class StudentsController < ApplicationController
   def stats
     @student = Student.find(params[:id])
     @months = @student.class_session_timeline
+    if params[:m]
+      @current_month = params[:m].to_time
+    else
+      @current_month = @months.first
+    end
 
   end
 
