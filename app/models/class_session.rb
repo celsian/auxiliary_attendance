@@ -5,6 +5,8 @@ class ClassSession < ActiveRecord::Base
 
   validates :name, presence: true
 
+  default_scope { order("created_at desc") }
+
   def close
     self.closed = true
     self.end_time = Time.now
