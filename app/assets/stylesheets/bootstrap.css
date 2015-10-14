@@ -3166,6 +3166,14 @@ tbody.collapse.in {
   color: #333;
   white-space: nowrap;
 }
+.centerDropdown {
+    left: auto !important;
+    right: 43% !important;
+}
+.centerDropdown:after {
+   left: auto !important;
+   right: 45% !important;
+}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   color: #262626;
