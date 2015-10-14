@@ -1,68 +1,93 @@
 <div class="row">
-  <div class="col-md-12" align="center">
-    <h2><b>Monthly Statistics:</b></h2>
+  <div class="col-md-6">
+    <h2><%= "#{@student.first_name} #{ @student.last_name }" %>
+    <small><%= "#{@student.id_number}" %></small></h2>
+  </div>
+  <div class="col-md-6" align="right">
+    
   </div>
 </div>
-<div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"><B><CENTER>February 2015</CENTER></B></h3>
-    </div>
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th width="13%">Sunday</th>
-          <th width="13%">Monday</th>
-          <th width="13%">Tuesday</th>
-          <th width="13%">Wednesday</th>
-          <th width="13%">Thursday</th>
-          <th width="13%">Friday</th>
-          <th width="13%">Saturday</th>
-          <th width="9%"></th>
-        </tr>
-      </thead>
-      <% 0.upto(3) do |i| %>
-      <tr>
-        <th width="13%">01</th>
-        <th width="13%">02</th>
-        <th width="13%">03</th>
-        <th width="13%">04</th>
-        <th width="13%">05</th>
-        <th width="13%">06</th>
-        <th width="13%">07</th>
-        <th>Week Total</th>
-      </tr>
-      <tr>
-      <td height="90px">
-      </td>
-      <td>
-        Chem Club
-      </td>
-      <td>
-        
-      </td>
-      <td>
-        English Tutorial
-      </td>
-      <td>
-        
-      </td>
-      <td>
-        Saturday Scholars
-      </td>
-      <td>
-        
-      </td>
-      <td>
-        1 hr 25 min
-      </td>
-    </tr>
+<hr>
+<% if @months %>
+  <div class="row">
+    <div class="col-md-12" align="center">
+    Months: 
+    <% @months.each do |month| %>
+      <%= month.strftime("%B %Y") %>
     <% end %>
-  </table>
+    </div>
+    <div class="col-md-12" align="center">
+      <h2><b>Monthly Statistics:</b></h2>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12" align="right">
-    <B>Month Total:</B> 3 hr 25 min
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><B><CENTER>February 2015</CENTER></B></h3>
+      </div>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th width="13%">Sunday</th>
+            <th width="13%">Monday</th>
+            <th width="13%">Tuesday</th>
+            <th width="13%">Wednesday</th>
+            <th width="13%">Thursday</th>
+            <th width="13%">Friday</th>
+            <th width="13%">Saturday</th>
+            <th width="9%"></th>
+          </tr>
+        </thead>
+        <% 0.upto(3) do |i| %>
+        <tr>
+          <th width="13%">01</th>
+          <th width="13%">02</th>
+          <th width="13%">03</th>
+          <th width="13%">04</th>
+          <th width="13%">05</th>
+          <th width="13%">06</th>
+          <th width="13%">07</th>
+          <th>Week Total</th>
+        </tr>
+        <tr>
+        <td height="90px">
+        </td>
+        <td>
+          Chem Club
+        </td>
+        <td>
+          
+        </td>
+        <td>
+          English Tutorial
+        </td>
+        <td>
+          
+        </td>
+        <td>
+          Saturday Scholars
+        </td>
+        <td>
+          
+        </td>
+        <td>
+          1 hr 25 min
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-md-12" align="right">
+      <B>Month Total:</B> 3 hr 25 min
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      There are no statics for student <B><%= "#{@student.first_name} #{ @student.last_name }" %></B> with ID Number <B><%= "#{ @student.id_number }" %></B>.<BR>
+      This student has never signed in.
+    </div>
+  </div>
+<% end %>
