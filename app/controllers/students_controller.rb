@@ -18,7 +18,9 @@ class StudentsController < ApplicationController
     else
       @current_month = @months.first
     end
-
+      @current_month_calendar = Student.calendar @current_month
+      @current_month_sessions = @student.class_sessions_for_month_results @current_month
+      @weeks_start = Student.calendar_weeks_start @current_month
   end
 
   def edit
