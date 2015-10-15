@@ -42,38 +42,23 @@
             <th width="9%"></th>
           </tr>
         </thead>
-        <% 0.upto(3) do |i| %>
+        <% 0.upto(@weeks_start.length-1) do |i| %>
         <tr>
-          <th width="13%">01</th>
-          <th width="13%">02</th>
-          <th width="13%">03</th>
-          <th width="13%">04</th>
-          <th width="13%">05</th>
-          <th width="13%">06</th>
-          <th width="13%">07</th>
+          <% 0.upto(6) do |j| %>
+          <th width="13%"><%= "#{(@weeks_start[i]+j.days).strftime('%d')}" %></th>
+          <% end %>
           <th>Week Total</th>
         </tr>
         <tr>
-        <td height="90px">
-        </td>
-        <td>
-          Chem Club
-        </td>
-        <td>
-          
-        </td>
-        <td>
-          English Tutorial
-        </td>
-        <td>
-          
-        </td>
-        <td>
-          Saturday Scholars
-        </td>
-        <td>
-          
-        </td>
+        <% 0.upto(6) do |j| %>
+          <td height="90px">
+            <% @current_month_sessions.each do |session| %>
+              <% if session.start_time.month == (@weeks_start[i]+j.days).month && session.start_time.day == (@weeks_start[i]+j.days).day %>
+                <%= link_to "#{session.class_session.name}", class_session_path(session.class_session_id) %><small>: <%= number_with_precision((session.end_time-session.start_time)/60, precision: 0) %> mins</small><br>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
         <td>
           1 hr 25 min
         </td>
@@ -85,6 +70,15 @@
   <div class="row">
     <div class="col-md-12" align="right">
       <B>Month Total:</B> 3 hr 25 min
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul>
+        <% @current_month_sessions.each do |s| %>
+          <li><%= link_to "#{s.class_session.name}", class_session_path(id: s.class_session_id) %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 <% else %>
