@@ -104,6 +104,43 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def time_weekly weeks
+    week_minutes = []
+      
+      weeks.each do |week_start|
+        time = 0
+        class_session_students.where(start_time: week_start..(week_start+7.days)).each do |css|
+          time += css.end_time - css.start_time
+        end
+        week_minutes << (time/60)
+      end
+
+      formatted_time = []
+
+      week_minutes.each do |min|
+        time = {}
+        time[:hours] = (min/60).floor
+        time[:minutes] = (min%60).round
+        formatted_time << time
+      end
+
+    return formatted_time
+  end
+
+  def self.time_monthly class_session_student_array
+    total_seconds = 0
+    class_session_student_array.each do |cs|
+      if cs.end_time
+        total_seconds += cs.end_time - cs.start_time
+      end
+    end
+
+    time = {}
+    time[:hours] = (total_seconds/60/60).floor
+    time[:minutes] = ((total_seconds%3600)/60).round
+    return time
+  end
+
   def self.import(file)
     record_changes = {success: 0, failure: 0}
     CSV.foreach(file.path, headers: true) do |row|
