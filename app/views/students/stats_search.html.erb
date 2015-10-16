@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3><B>Search for Students:</B></h3>
+    <%= form_tag students_stat_search_path, :method => :get, :class => "form-search" do %>
+      <%= text_field_tag :q, '',size: 30, autofocus: true %>
+      <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
+    <% end %>
+  </div>
+  <div class="col-md-6" align="right">
+    <br>
+    <h2><B>Student List</B></h2>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading"><h3 class="panel-title"><B><CENTER>Add Rights</CENTER></B></h3></div>
+
+      <!-- Table -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>First</th><th>Last</th><th>ID Number</th>
+          </tr>
+        </thead>
+    <% if @students.length > 0 %>
+      <% @students.each do |student| %>
+        <tr data-link="<%= student_stats_path(student) %>">
+          <td>
+            <%= student.first_name %>
+          </td>
+          <td>
+            <%= student.last_name %>
+          </td>
+          <td>
+            <%= student.id_number %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td>
+        Sorry, no records match your query.
+        </td>
+        <td>
+        </td>
+      </tr>
+    <% end %>
+      </table>
+    </div>
+<!-- PAGINATION STARTS HERE -->
+    <nav>
+      <ul class="pagination">    
+          <% if params[:s].to_i == 0 %>
+            <li class="disabled"><a href="">«</a></li>
+          <% else %>
+            <li><%= link_to "«", students_stat_search_path(params.merge(s: params[:s].to_i-1)) %></li>
+          <% end %>
+        <% if @student_pages %>
+          <% 1.upto(@student_pages) do |i| %>
+            <% if params[:s].to_i == i-1 %>
+              <li class="active">
+            <% else %>
+              <li>
+            <% end %>
+              <%= link_to i, students_stat_search_path(params.merge(s: i-1)) %>
+          <% end %>
+              </li>
+        <% end %>
+        <li>
+            <% if params[:s].to_i == @student_pages-1 || @student_pages == 0 %>
+              <li class="disabled"><a href="">»</a></li>
+            <% else %>
+              <%= link_to "»", teacher_editor_path(params.merge(s: params[:s].to_i+1)) %>
+            <% end %>
+        </li>
+      </ul>
+    </nav>
+<!-- PAGINATION ENDs HERE -->
+  </div>
+</div>
