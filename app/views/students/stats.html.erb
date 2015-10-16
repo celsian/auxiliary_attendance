@@ -15,12 +15,21 @@
         <h3 class="panel-title" align="center">
 
             <div class="dropdown">
-              <%= link_to "«", student_stats_path(m: @current_month-1.month), class: "btn btn-default" %>
+              <% if (@current_month-1.month).between?(@months.last, @months.first) %>
+                <%= link_to "«", student_stats_path(m: @current_month-1.month), class: "btn btn-default" %>
+              <% else %>
+                <button class="btn disabled">«</button>
+              <% end %>
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <B><%= @current_month.strftime("%B %Y") %></B>
                 <span class="caret"></span>
               </button>
-              <%= link_to "»", student_stats_path(m: @current_month+1.month), class: "btn btn-default" %>
+              <% if (@current_month+1.month).between?(@months.last, @months.first) %>
+                <%= link_to "»", student_stats_path(m: @current_month+1.month), class: "btn btn-default" %>
+              <% else %>
+                <button class="btn disabled">»</button>
+              <% end %>
+              
               <ul class="dropdown-menu centerDropdown" aria-labelledby="dropdownMenu2">
                 <% @months.each do |m| %>
                   <li><%= link_to m.strftime("%B %Y"), student_stats_path(m: m) %></li>
@@ -42,10 +51,16 @@
             <th width="9%"></th>
           </tr>
         </thead>
-        <% 0.upto(@weeks_start.length-1) do |i| %>
+        <% 0.upto(@weeks.length-1) do |i| %>
         <tr>
           <% 0.upto(6) do |j| %>
-          <th width="13%"><%= "#{(@weeks_start[i]+j.days).strftime('%d')}" %></th>
+            <th width="13%">
+              <% if @current_month.month != (@weeks[i]+j.days).month %>
+                <small><font style="color: #696969;">
+              <% end %>
+                <%= "#{(@weeks[i]+j.days).strftime('%d')}" %>
+              </small>
+            </th>
           <% end %>
           <th>Week Total</th>
         </tr>
@@ -53,14 +68,21 @@
         <% 0.upto(6) do |j| %>
           <td height="90px">
             <% @current_month_sessions.each do |session| %>
-              <% if session.start_time.month == (@weeks_start[i]+j.days).month && session.start_time.day == (@weeks_start[i]+j.days).day %>
-                <%= link_to "#{session.class_session.name}", class_session_path(session.class_session_id) %><small>: <%= number_with_precision((session.end_time-session.start_time)/60, precision: 0) %> mins</small><br>
+              <% if session.start_time.month == (@weeks[i]+j.days).month && session.start_time.day == (@weeks[i]+j.days).day %>
+                <%= link_to "#{session.class_session.name}", class_session_path(session.class_session_id) %>: <small>
+                      <% if session.end_time %>
+                        <%= number_with_precision((session.end_time-session.start_time)/60, precision: 0) %> min
+                      <% else %>
+                        Open Session
+                      <% end %>
+                    </small>
+                    <br>
               <% end %>
             <% end %>
           </td>
         <% end %>
         <td>
-          1 hr 25 min
+          <%= "#{@weekly_times[i][:hours]} hr #{@weekly_times[i][:minutes]} min" %> 
         </td>
       </tr>
       <% end %>
@@ -69,16 +91,7 @@
   </div>
   <div class="row">
     <div class="col-md-12" align="right">
-      <B>Month Total:</B> 3 hr 25 min
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <ul>
-        <% @current_month_sessions.each do |s| %>
-          <li><%= link_to "#{s.class_session.name}", class_session_path(id: s.class_session_id) %></li>
-        <% end %>
-      </ul>
+      <B>Month Total:</B> <%= "#{@current_month_total_time[:hours]} Hours #{@current_month_total_time[:minutes]} Minutes" %>
     </div>
   </div>
 <% else %>
