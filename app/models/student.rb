@@ -16,7 +16,10 @@ class Student < ActiveRecord::Base
     end
     messages
   end
-
+  
+  def self.student_pages student_count
+    (student_count/User::USERS_PER_PAGE).ceil
+  end
 ######Calendar Calculations#######
   def class_session_timeline
     all_months = []
@@ -81,8 +84,12 @@ class Student < ActiveRecord::Base
 #####End Calendar Calculations########
 
   def self.search query, page_index, enabled_bool
-    query = query.downcase
-    result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: enabled_bool)
+    if query != ""
+      query = query.downcase
+      result = where(sanitize_sql_array(["lower(first_name) LIKE :query OR lower(last_name) LIKE :query OR id_number like :query", query: "%#{query}%"])).where(enabled: enabled_bool)
+    else
+      result = Student.where(enabled: enabled_bool)
+    end
     result_count = result.count
     result = result[(Student.page page_index)..-1]
     return [result_count, result[0..User::USERS_PER_PAGE-1]]
