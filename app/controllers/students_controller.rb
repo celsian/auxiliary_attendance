@@ -20,7 +20,9 @@ class StudentsController < ApplicationController
     end
       @current_month_calendar = Student.calendar @current_month
       @current_month_sessions = @student.class_sessions_for_month_results @current_month
-      @weeks_start = Student.calendar_weeks_start @current_month
+      @weeks = Student.calendar_weeks_start @current_month
+      @current_month_total_time = Student.time_monthly @current_month_sessions
+      @weekly_times = @student.time_weekly @weeks
   end
 
   def edit
