@@ -10,19 +10,32 @@ class StudentsController < ApplicationController
     @students = results.last
   end
 
+  def stats_search
+    if params[:q] && params[:q].blank? || !params[:q]
+      params[:q] = ""
+    end
+    results = Student.search(params[:q], params[:s], true)
+    @students = results.last
+    @student_pages = Student.student_pages(results.first)
+
+  end
+
   def stats
     @student = Student.find(params[:id])
     @months = @student.class_session_timeline
-    if params[:m]
-      @current_month = params[:m].to_time
-    else
-      @current_month = @months.first
+
+    if @student.class_sessions.length > 0
+      if params[:m]
+        @current_month = params[:m].to_time
+      else
+        @current_month = @months.first
+      end
+        @current_month_calendar = Student.calendar @current_month
+        @current_month_sessions = @student.class_sessions_for_month_results @current_month
+        @weeks = Student.calendar_weeks_start @current_month
+        @current_month_total_time = Student.time_monthly @current_month_sessions
+        @weekly_times = @student.time_weekly @weeks
     end
-      @current_month_calendar = Student.calendar @current_month
-      @current_month_sessions = @student.class_sessions_for_month_results @current_month
-      @weeks = Student.calendar_weeks_start @current_month
-      @current_month_total_time = Student.time_monthly @current_month_sessions
-      @weekly_times = @student.time_weekly @weeks
   end
 
   def edit
