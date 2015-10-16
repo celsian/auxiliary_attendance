@@ -8,17 +8,17 @@
     <div class="col-md-4">
       <h2>Teachers</h2>
       <p>Statistics by teacher.</p>
-      <p><%= link_to "Teacher Stats »", teacher_editor_path, class: "btn btn-default" %></p>
+      <p><%= link_to "Teacher Stats »", '', class: "btn btn-default" %></p>
     </div>
     <div class="col-md-4">
       <h2>Students</h2>
       <p>Statistics by student.</p>
-      <p><%= link_to "Students Stats »", user_search_path, class: "btn btn-default" %></p>
+      <p><%= link_to "Students Stats »", students_stat_search_path, class: "btn btn-default", data: { no_turbolink: true } %></p>
     </div>
     <div class="col-md-4">
       <h2>General</h2>
       <p>Generalized school statistics.</p>
-      <p><%= link_to "General Stats »", user_search_path, class: "btn btn-default" %></p>
+      <p><%= link_to "General Stats »", '', class: "btn btn-default" %></p>
     </div>
   </div>
 </div>
