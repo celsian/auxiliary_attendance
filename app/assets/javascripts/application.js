@@ -17,3 +17,9 @@
 //= require_tree .
 
 Turbolinks.enableTransitionCache();
+
+jQuery(function($) {
+  $("tr[data-link]").click(function() {
+    window.location = this.dataset.link
+  });
+})
