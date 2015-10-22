@@ -33,6 +33,34 @@ class UsersController < ApplicationController
     end
   end
 
+  def teacher_stats_search
+    if params[:q] && params[:q].blank? || !params[:q]
+      params[:q] = ""
+    end
+    results = User.search(params[:q], params[:s])
+    @teachers = results.last
+    @teacher_pages = User.teacher_pages
+
+  end
+
+  def teacher_stats
+    @teacher = User.find(params[:id])
+    @months = @teacher.class_session_timeline
+
+    if @teacher.class_sessions.length > 0
+      if params[:m]
+        @current_month = params[:m].to_time
+      else
+        @current_month = @months.first
+      end
+        @current_month_calendar = User.calendar @current_month
+        @current_month_sessions = @teacher.class_sessions_for_month_results @current_month
+        @weeks = User.calendar_weeks_start @current_month
+        @current_month_total_time = User.time_monthly @current_month_sessions
+        @weekly_times = @teacher.time_weekly @weeks
+    end
+  end
+
   private
 
   def user_params
