@@ -124,7 +124,47 @@ class User < ActiveRecord::Base
 
   def class_sessions_for_month_results month
     results = User.calendar month
-    class_session.where(start_time: results[:month_start]..results[:month_end])
+    class_sessions.where(created_at: results[:month_start]..results[:month_end])
   end
+
+  def time_weekly weeks
+    week_minutes = []
+      
+      weeks.each do |week_start|
+        time = 0
+        class_sessions.where(created_at: week_start..(week_start+7.days)).each do |cs|
+          if cs.end_time
+            time += cs.end_time - cs.created_at
+          end
+        end
+        week_minutes << (time/60)
+      end
+
+      formatted_time = []
+
+      week_minutes.each do |min|
+        time = {}
+        time[:hours] = (min/60).floor
+        time[:minutes] = (min%60).round
+        formatted_time << time
+      end
+
+    return formatted_time
+  end
+
+  def self.time_monthly class_session_array
+    total_seconds = 0
+    class_session_array.each do |cs|
+      if cs.end_time
+        total_seconds += cs.end_time - cs.created_at
+      end
+    end
+
+    time = {}
+    time[:hours] = (total_seconds/60/60).floor
+    time[:minutes] = ((total_seconds%3600)/60).round
+    return time
+  end
+
 #####End Calendar Calculations########
 end
