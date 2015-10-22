@@ -22,6 +22,8 @@ AuxiliaryAttendance::Application.routes.draw do
   
   resources :users
   get "/user_search", to: "users#user_search", as: "user_search"
+  get "/teacher_stat_search", to: "users#teacher_stats_search", as: "teacher_stat_search"
+  get "/teacher/:id/stats", to: "users#teacher_stats", as: "teacher_stats"
 
   resources :students, only: [:index, :edit, :update]
   get "/student/import", to: "students#import", as: "import"
