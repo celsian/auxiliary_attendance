@@ -49,11 +49,6 @@ class Student < ActiveRecord::Base
     results
   end
 
-  # def self.calendar_weeks month
-  #   results = calendar month
-  #   ((results[:month_end] - results[:month_start])/(24 * 60 * 60)).ceil/7
-  # end
-
   def self.calendar_weeks_start month
     results = Student.calendar month
     current_week = results[:month_start]
