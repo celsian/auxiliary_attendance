@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2><B>Stats:</B> <%= "#{@teacher.email.humanize}" %>
+    <small><%= "" %></small></h2>
+  </div>
+  <div class="col-md-6" align="right">
+    
+  </div>
+</div>
+<br>
+<% if @months %>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" align="center">
+
+            <div class="dropdown">
+              <% if (@current_month-1.month).between?(@months.last, @months.first) %>
+                <%= link_to "«", teacher_stats_path(m: @current_month-1.month), class: "btn btn-default" %>
+              <% else %>
+                <button class="btn disabled">«</button>
+              <% end %>
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <B><%= @current_month.strftime("%B %Y") %></B>
+                <span class="caret"></span>
+              </button>
+              <% if (@current_month+1.month).between?(@months.last, @months.first) %>
+                <%= link_to "»", teacher_stats_path(m: @current_month+1.month), class: "btn btn-default" %>
+              <% else %>
+                <button class="btn disabled">»</button>
+              <% end %>
+              
+              <ul class="dropdown-menu centerDropdown" aria-labelledby="dropdownMenu2">
+                <% @months.each do |m| %>
+                  <li><%= link_to m.strftime("%B %Y"), teacher_stats_path(m: m) %></li>
+                <% end %>
+              </ul>
+            </div>
+        </h3>
+      </div>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th width="13%">Sunday</th>
+            <th width="13%">Monday</th>
+            <th width="13%">Tuesday</th>
+            <th width="13%">Wednesday</th>
+            <th width="13%">Thursday</th>
+            <th width="13%">Friday</th>
+            <th width="13%">Saturday</th>
+            <th width="9%"></th>
+          </tr>
+        </thead>
+        <% 0.upto(@weeks.length-1) do |i| %>
+        <tr>
+          <% 0.upto(6) do |j| %>
+            <th width="13%">
+              <% if @current_month.month != (@weeks[i]+j.days).month %>
+                <small><font style="color: #696969;">
+              <% end %>
+                <%= "#{(@weeks[i]+j.days).strftime('%d')}" %>
+              </small>
+            </th>
+          <% end %>
+          <th>Week Total</th>
+        </tr>
+        <tr>
+        <% 0.upto(6) do |j| %>
+          <td height="90px">
+            <% @current_month_sessions.each do |session| %>
+              <% if session.created_at.month == (@weeks[i]+j.days).month && session.created_at.day == (@weeks[i]+j.days).day %>
+                <%= link_to "#{session.name}", class_session_path(session) %>: <small>
+                      <% if session.end_time %>
+                        <%= number_with_precision((session.end_time-session.created_at)/60, precision: 0) %> min
+                      <% else %>
+                        Open Session
+                      <% end %>
+                    </small>
+                    <br>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+        <td>
+          <%= "#{@weekly_times[i][:hours]} hr #{@weekly_times[i][:minutes]} min" %> 
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="right">
+      <B>Month Total:</B> <%= "#{@current_month_total_time[:hours]} Hours #{@current_month_total_time[:minutes]} Minutes" %>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      There are no statics for student <B><%= "#{@student.first_name} #{ @student.last_name }" %></B> with ID Number <B><%= "#{ @student.id_number }" %></B>.<BR>
+      This student has never signed into a session.
+    </div>
+  </div>
+<% end %>
