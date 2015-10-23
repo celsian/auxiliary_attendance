@@ -30,8 +30,8 @@ AuxiliaryAttendance::Application.routes.draw do
   post "/student/import/submit", to: "students#import", as: "import_submit"
   get "/student/:id/enable_disable", to: "students#enable_disable", as: "student_enable_disable"
   get "/student/:id/stats", to: "students#stats", as: "student_stats"
-  get "student/stat_search", to: "students#stats_search", as: "students_stat_search"
+  get "/student/stat_search", to: "students#stats_search", as: "students_stat_search"
 
   resources :stats, only: [:index]
-
+  get "/stats/general", to: "stats#general", as: "stats_general"
 end
