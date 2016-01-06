@@ -24,17 +24,24 @@ class Student < ActiveRecord::Base
   def class_session_timeline
     all_months = []
 
-    class_sessions_results = class_sessions.reorder(created_at: :asc)
+    class_sessions_results = class_sessions.reorder(created_at: :desc)
+
     if class_sessions_results.length > 0
-      start_month = class_sessions_results.first.created_at.at_beginning_of_month
-      end_month = class_sessions_results.last.created_at.at_beginning_of_month
+    #   start_month = class_sessions_results.first.created_at.at_beginning_of_month
+    #   end_month = class_sessions_results.last.created_at.at_beginning_of_month
 
-      unless end_month == start_month
-        all_months << end_month
-        end_month = end_month-1.month
+    #   unless end_month == start_month
+    #     all_months << end_month
+    #     end_month = end_month-1.month
+    #   end
+
+    #   all_months << start_month
+      class_sessions_results.each do |cs|
+        current_month = cs.created_at.at_beginning_of_month
+        if all_months.last != current_month
+          all_months << current_month
+        end
       end
-
-      all_months << start_month
 
       return all_months
     end
