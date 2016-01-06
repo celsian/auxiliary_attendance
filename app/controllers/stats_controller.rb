@@ -4,6 +4,6 @@ class StatsController < ApplicationController
   end
 
   def general
-
+    
   end
 end
