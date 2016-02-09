@@ -3,13 +3,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 gem 'thin'
-
+     
 gem "pg"
 
 gem 'devise'
 
 #Turbo links to stop the loading JS and CSS on every page load.
-gem 'turbolinks'
+# gem 'turbolinks'
 
 #Gems for workers:
 # gem 'sidekiq'
