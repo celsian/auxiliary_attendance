@@ -37,8 +37,8 @@
 
     <!-- Javascripts ================================================== -->
     <!-- Placed in the head of the document so turbolinks can do it's think without interference -->
-    <%= javascript_include_tag "application" %>
-    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   </head>
   <body>
 

@@ -9,7 +9,7 @@ gem "pg"
 gem 'devise'
 
 #Turbo links to stop the loading JS and CSS on every page load.
-# gem 'turbolinks'
+gem 'turbolinks'
 
 #Gems for workers:
 # gem 'sidekiq'
