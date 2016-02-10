@@ -42,7 +42,7 @@ class ClassSessionsController < ApplicationController
     time = Time.now
 
     @class_session.class_session_students.where(end_time: nil).each do |class_session_student|
-      class_session_student.end_time = time
+      class_session_student.end_time = class_session_student.start_time
       class_session_student.save
     end
 
