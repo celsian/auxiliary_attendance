@@ -79,13 +79,16 @@
             <li><%= link_to "«", students_path(params.merge(s: params[:s].to_i-1)) %></li>
           <% end %>
         <% if @student_pages %>
-          <% 1.upto(@student_pages) do |i| %>
+          <% @start = params[:s].to_i-(Student::PAGINATION_SIZE/2-2) %>
+          <% @start.upto(params[:s].to_i+3 <= @student_pages ? params[:s].to_i+(Student::PAGINATION_SIZE/2) : @student_pages) do |i| %>
             <% if params[:s].to_i == i-1 %>
               <li class="active">
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, students_path(params.merge(s: i-1)) %>
+              <% if i > 0 %>
+                <%= link_to i.to_s.rjust(2, '0'), students_path(params.merge(s: i-1)) %>
+              <% end %>
           <% end %>
               </li>
         <% end %>
