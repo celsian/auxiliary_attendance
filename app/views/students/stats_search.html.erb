@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6">
     <h3><B>Search for Students:</B></h3>
-    <%= form_tag students_stat_search_path, :method => :get, :class => "form-search" do %>
+    <%= form_tag students_stat_search_path, :method => :get, :class => "form-search", :enforce_utf8 => false do %>
       <%= text_field_tag :q, '',size: 30, autofocus: true %>
       <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
     <% end %>
@@ -27,15 +27,15 @@
         </thead>
     <% if @students.length > 0 %>
       <% @students.each do |student| %>
-        <tr data-link="<%= student_stats_path(student) %>">
+        <tr class='clickable-row' data-link="<%= student_stats_path(student) %>">
           <td>
-            <%= student.first_name %>
+            <%= link_to student.first_name, student_stats_path(student) %>
           </td>
           <td>
-            <%= student.last_name %>
+            <%= link_to student.last_name, student_stats_path(student) %>
           </td>
           <td>
-            <%= student.id_number %>
+            <%= link_to student.id_number, student_stats_path(student) %>
           </td>
         </tr>
       <% end %>
@@ -59,13 +59,16 @@
             <li><%= link_to "«", students_stat_search_path(params.merge(s: params[:s].to_i-1)) %></li>
           <% end %>
         <% if @student_pages %>
-          <% 1.upto(@student_pages) do |i| %>
+          <% @start = params[:s].to_i-(Student::PAGINATION_SIZE/2-2) %>
+          <% @start.upto(params[:s].to_i+(Student::PAGINATION_SIZE/2) <= @student_pages ? params[:s].to_i+(Student::PAGINATION_SIZE/2) : @student_pages) do |i| %>
             <% if params[:s].to_i == i-1 %>
               <li class="active">
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, students_stat_search_path(params.merge(s: i-1)) %>
+              <% if i > 0 %>
+                <%= link_to i.to_s.rjust(2, '0'), students_stat_search_path(params.merge(s: i-1)) %>
+              <% end %>
           <% end %>
               </li>
         <% end %>
@@ -73,7 +76,7 @@
             <% if params[:s].to_i == @student_pages-1 || @student_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", teacher_editor_path(params.merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", students_stat_search_path(params.merge(s: params[:s].to_i+1)) %>
             <% end %>
         </li>
       </ul>
