@@ -9,6 +9,8 @@ class Student < ActiveRecord::Base
 
   default_scope { order("first_name ASC") }
 
+  PAGINATION_SIZE = 8
+
   def error_messages
     messages = ""
     errors.full_messages.each do |message|
