@@ -10,6 +10,7 @@ gem 'devise'
 
 #Turbo links to stop the loading JS and CSS on every page load.
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 #Gems for workers:
 # gem 'sidekiq'
@@ -18,6 +19,8 @@ gem 'turbolinks'
 #For statistical analysis
 gem "chartkick"
 gem 'groupdate'
+gem 'eventmachine', '1.2.0.1'
+gem 'json', '1.8.3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
