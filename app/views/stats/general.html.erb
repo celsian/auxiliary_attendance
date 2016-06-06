@@ -1,3 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <tr class="success">
+          <th style="width: 50%;">Sessions:</th><th>Teacher:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
+        </tr>
+        <% @class_sessions.each do |session| %>
+        <tr>
+          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.user.email[/[^@]+/] %></td><td><%= session.created_at.strftime("%a %m/%d/%Y") %></td><td><%= session.created_at.strftime("%l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "-" %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+<BR><BR><BR>
 <div class="row">
   <div class="col-md-12" align="center">
     <H2><b>General Statistics:</b></H2>
@@ -19,5 +40,4 @@
     Unique Student Attendance:<br>
     X students have attended 0 sessions, X have attended 5 or less, X have attened more than 5.
   </div>
-
 </div>
