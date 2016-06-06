@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <table class="table table-striped">
-        <tr class="success">
-          <th style="width: 50%;">Sessions:</th><th>Teacher:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
+        <tr>
+          <th style="width: 45%;">Sessions for <%= (Time.zone.now.beginning_of_day+(params[:offset].to_i.days)).strftime("%a %m/%d/%Y") %>:</th><th>Teacher:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
         </tr>
         <% @class_sessions.each do |session| %>
         <tr>
@@ -13,7 +13,13 @@
       </table>
     </div>
   </div>
+  <div class="row">
+  <div class="col-md-12">
+    <%= link_to "<< Previous Day", stats_general_path(offset: params[:offset].to_i-1) %><%= link_to "Next Day >>", stats_general_path(offset: params[:offset].to_i+1), class: "pull-right" %>
+  </div>
+  </div>
 </div>
+
 
 
 
