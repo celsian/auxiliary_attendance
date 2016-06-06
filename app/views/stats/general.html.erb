@@ -15,7 +15,7 @@
   </div>
   <div class="row">
   <div class="col-md-12">
-    <%= link_to "<< Previous Day", stats_general_path(offset: params[:offset].to_i-1) %><%= link_to "Next Day >>", stats_general_path(offset: params[:offset].to_i+1), class: "pull-right" %>
+    <%= link_to "« Previous Day", stats_general_path(offset: params[:offset].to_i-1), class: "btn btn-primary" %><%= link_to "Next Day »", stats_general_path(offset: params[:offset].to_i+1), class: "btn btn-primary pull-right" %>
   </div>
   </div>
 </div>
