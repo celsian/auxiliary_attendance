@@ -21,6 +21,10 @@ class ClassSession < ActiveRecord::Base
     end
   end
 
+  def class_session_students_sorted
+    class_session_students.sort_by { |class_session_student| [class_session_student.student.last_name, class_session_student.student.first_name] }
+  end
+
   def auto_close
     time = created_at #Initializing this incase no students signed out. (Should be when the last student left)
 
