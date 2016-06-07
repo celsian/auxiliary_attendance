@@ -3,11 +3,39 @@
     <div class="col-md-12">
       <table class="table table-striped">
         <tr>
-          <th style="width: 45%;">Sessions for <%= (Time.zone.now.beginning_of_day+(params[:offset].to_i.days)).strftime("%a %m/%d/%Y") %>:</th><th>Teacher:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
+          <th style="width: 45%;">
+            Sessions for <%= (Time.zone.now.beginning_of_day+(params[:offset].to_i.days)).strftime("%a %m/%d/%Y") %>:
+          </th>
+          <th>
+            Teacher:
+          </th>
+          <th>
+            Date:
+          </th>
+          <th>
+            Start Time:
+          </th>
+          <th>
+            End Time:
+          </th>
         </tr>
         <% @class_sessions.each do |session| %>
         <tr>
-          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.user.email[/[^@]+/] %></td><td><%= session.created_at.strftime("%a %m/%d/%Y") %></td><td><%= session.created_at.strftime("%l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "-" %></td>
+          <td>
+            <%= link_to "#{session.name}", class_session_path(session) %>
+          </td>
+          <td>
+            <%= session.user.email[/[^@]+/] %>
+          </td>
+          <td>
+            <%= session.created_at.strftime("%a %m/%d/%Y") %>
+          </td>
+          <td>
+            <%= session.created_at.strftime("%l:%M:%S %p") %>
+          </td>
+          <td>
+            <%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "-" %>
+          </td>
         </tr>
         <% end %>
       </table>
@@ -15,7 +43,8 @@
   </div>
   <div class="row">
   <div class="col-md-12">
-    <%= link_to "« Previous Day", stats_general_path(offset: params[:offset].to_i-1), class: "btn btn-primary" %><%= link_to "Next Day »", stats_general_path(offset: params[:offset].to_i+1), class: "btn btn-primary pull-right" %>
+    <%= link_to "« Previous Day", stats_general_path(offset: params[:offset].to_i-1), class: "btn btn-primary" %>
+    <%= link_to "Next Day »", stats_general_path(offset: params[:offset].to_i+1), class: "btn btn-primary pull-right" %>
   </div>
   </div>
 </div>
