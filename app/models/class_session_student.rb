@@ -6,6 +6,8 @@ class ClassSessionStudent < ActiveRecord::Base
   validate :class_session_open
   validate :student_unique_presence
 
+  default_scope { order("created_at desc") }
+
   def student_exists
     if student_id == nil || (Student.find(student_id).enabled) == false
       if student_id == nil
