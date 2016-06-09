@@ -121,7 +121,11 @@ class Student < ActiveRecord::Base
       weeks.each do |week_start|
         time = 0
         class_session_students.where(start_time: week_start..(week_start+7.days)).each do |css|
-          time += css.end_time - css.start_time
+          if css.end_time
+            time += css.end_time - css.start_time
+          else
+            time += Time.now - css.start_time
+          end
         end
         week_minutes << (time/60)
       end
