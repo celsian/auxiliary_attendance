@@ -4,10 +4,11 @@ class ClassSessionsController < ApplicationController
 
   def index
     if current_user
+      ClassSession.stale_classes?
+
       @class_sessions_open = ClassSession.where(user: current_user, closed: false)
       @class_sessions_closed = ClassSession.where(user: current_user, closed: true)
     end
-    # binding.pry
   end
 
   def show
