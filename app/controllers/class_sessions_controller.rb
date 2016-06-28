@@ -36,6 +36,20 @@ class ClassSessionsController < ApplicationController
       render :new
     end
   end
+  
+  def edit
+    @class_session = ClassSession.find(params[:id])
+  end
+  
+  def update
+    @class_session = ClassSession.find(params[:id])
+    if @class_session.update_attributes(class_session_params)
+      redirect_to class_session_path(@class_session), flash: {success: "Session was updated."}
+    else
+      flash[:error] = "<B>ERROR:</B> #{errors}"
+      render :edit
+    end
+  end
 
   def close_session
     @class_session = ClassSession.find(params[:id])
