@@ -27,11 +27,6 @@ class ClassSessionsController < ApplicationController
     if @class_session.save
       redirect_to class_session_path(@class_session), flash: {success: "Session was created."}
     else
-      errors = ""
-      @class_session.errors.full_messages.each do |message|
-        errors += (" " + message + ".")
-      end
-
       flash[:error] = "<B>ERROR:</B> #{errors}"
       render :new
     end
@@ -71,6 +66,15 @@ class ClassSessionsController < ApplicationController
   end
 
   private
+
+  def errors
+    errors = ""
+    @class_session.errors.full_messages.each do |message|
+      errors += (" " + message + ".")
+    end
+
+    errors
+  end
 
   def class_session_params
     params.require(:class_session).permit(:name)

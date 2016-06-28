@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-9" style="font-size:x-large;">
+    <div class="col-md-12" style="font-size:x-large;">
       <P>
-        <B>Session: <%= @class_session.name %></B>
+        <B>Session: <%= @class_session.name %></B><%= link_to "Edit", edit_class_session_path(@class_session), class: "btn-sm btn-primary pull-right" %>
       </P>
     </div>
   <% if !@class_session.closed %>
