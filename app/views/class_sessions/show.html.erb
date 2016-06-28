@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-9" style="font-size:x-large;">
       <P>
-        <B>Session: <%= @class_session.name %></B> <%= link_to "Edit", edit_class_session_path(@class_session), class: "btn-sm btn-primary" %>
+        <B>Session: <%= @class_session.name %></B> <%= link_to "Edit", edit_class_session_path(@class_session), class: "btn-sm btn-primary", style: "vertical-align: middle" %>
       </P>
     </div>
   <% if !@class_session.closed %>
