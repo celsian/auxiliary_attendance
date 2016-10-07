@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    def user_search
+  def user_search
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = "@"
     end
@@ -37,10 +37,9 @@ class UsersController < ApplicationController
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = ""
     end
-    results = User.search(params[:q], params[:s])
+    results = User.teacher_search(params[:q], params[:s])
     @teachers = results.last
-    @teacher_pages = User.teacher_pages
-
+    @teacher_pages = (results.first/User::USERS_PER_PAGE).ceil
   end
 
   def teacher_stats

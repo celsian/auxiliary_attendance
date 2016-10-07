@@ -14,7 +14,7 @@ class AdminController < ApplicationController
     @teachers = User.teachers(params[:t])
     @teacher_pages = User.teacher_pages
 
-  end  
+  end
 
   def add_teacher
     user = User.find(params[:id])

@@ -26,6 +26,14 @@ class User < ActiveRecord::Base
     return [result_count, result[0..USERS_PER_PAGE-1]]
   end
 
+  def self.teacher_search query, page_index
+    query = query.downcase
+    result = where(sanitize_sql_array(["email LIKE :query", query: "%#{query}%"])).where(teacher: true)
+    result_count = result.count
+    result = result[(User.page page_index)..-1]
+    return [result_count, result[0..USERS_PER_PAGE-1]]
+  end
+
   def self.page page_index
     USERS_PER_PAGE*page_index.to_i
   end
@@ -129,7 +137,7 @@ class User < ActiveRecord::Base
 
   def time_weekly weeks
     week_minutes = []
-      
+
       weeks.each do |week_start|
         time = 0
         class_sessions.where(created_at: week_start..(week_start+7.days)).each do |cs|
