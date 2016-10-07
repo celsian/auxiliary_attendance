@@ -52,11 +52,11 @@
     </div>
 <!-- PAGINATION STARTS HERE -->
     <nav>
-      <ul class="pagination">    
+      <ul class="pagination">
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", students_stat_search_path(params.merge(s: params[:s].to_i-1)) %></li>
+            <li><%= link_to "«", teacher_stat_search_path(params.merge(s: params[:s].to_i-1)) %></li>
           <% end %>
         <% if @teacher_pages %>
           <% 1.upto(@teacher_pages) do |i| %>
@@ -65,7 +65,7 @@
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, students_stat_search_path(params.merge(s: i-1)) %>
+              <%= link_to i, teacher_stat_search_path(params.merge(s: i-1)) %>
           <% end %>
               </li>
         <% end %>
@@ -73,7 +73,7 @@
             <% if params[:s].to_i == @teacher_pages-1 || @teacher_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", teacher_editor_path(params.merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", teacher_stat_search_path(params.merge(s: params[:s].to_i+1)) %>
             <% end %>
         </li>
       </ul>
