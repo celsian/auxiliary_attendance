@@ -1,6 +1,9 @@
 class StatsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_admin
+
   def index
-    
+
   end
 
   def general
@@ -9,12 +12,20 @@ class StatsController < ApplicationController
     if params[:offset]
       offset = params[:offset].to_i
     end
-    
-    @class_sessions = ClassSession.where("created_at >= :day_start AND created_at <= :day_end", 
-                                          { 
+
+    @class_sessions = ClassSession.where("created_at >= :day_start AND created_at <= :day_end",
+                                          {
                                             day_start: (Time.zone.now+offset.days).beginning_of_day,
                                             day_end: (Time.zone.now+offset.days).end_of_day
                                           }
                                         )
+  end
+
+  private
+
+  def require_admin
+    unless current_user.admin == true
+      redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
+    end
   end
 end

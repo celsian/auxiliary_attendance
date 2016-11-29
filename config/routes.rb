@@ -19,13 +19,13 @@ AuxiliaryAttendance::Application.routes.draw do
   get "/admin/admin_editor", to: "admin#admin_editor", as: "admin_editor"
   get "/admin/user/:id/add_admin/:q", to: "admin#add_admin", as: "add_admin"
   get "/admin/user/:id/remove_admin/:q", to: "admin#remove_admin", as: "remove_admin"
-  
+
   resources :users
   get "/user_search", to: "users#user_search", as: "user_search"
   get "/teacher_stat_search", to: "users#teacher_stats_search", as: "teacher_stat_search"
   get "/teacher/:id/stats", to: "users#teacher_stats", as: "teacher_stats"
 
-  resources :students, only: [:index, :edit, :update]
+  resources :students, only: [:index, :new, :create, :edit, :update]
   get "/student/import", to: "students#import", as: "import"
   post "/student/import/submit", to: "students#import", as: "import_submit"
   get "/student/:id/enable_disable", to: "students#enable_disable", as: "student_enable_disable"

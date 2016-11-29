@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
 
   validates :first_name, :last_name, :id_number, presence: true
   validates :id_number, uniqueness: true
-  
+
   has_many :class_session_students
   has_many :class_sessions, through: :class_session_students
 
@@ -18,7 +18,7 @@ class Student < ActiveRecord::Base
     end
     messages
   end
-  
+
   def self.student_pages student_count
     (student_count/User::USERS_PER_PAGE).ceil
   end
@@ -117,7 +117,7 @@ class Student < ActiveRecord::Base
 
   def time_weekly weeks
     week_minutes = []
-      
+
       weeks.each do |week_start|
         time = 0
         class_session_students.where(start_time: week_start..(week_start+7.days)).each do |css|

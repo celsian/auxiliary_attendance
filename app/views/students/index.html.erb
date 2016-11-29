@@ -58,13 +58,13 @@
         Sorry, no records match your query.
         </td>
         <td>
-        
+
         </td>
         <td>
-        
+
         </td>
         <td>
-        
+
         </td>
       </tr>
     <% end %>
@@ -72,7 +72,7 @@
     </div>
 <!-- PAGINATION STARTS HERE -->
     <nav>
-      <ul class="pagination">    
+      <ul class="pagination">
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
@@ -80,7 +80,7 @@
           <% end %>
         <% if @student_pages %>
           <% @start = params[:s].to_i-(Student::PAGINATION_SIZE/2-2) %>
-          <% @start.upto(params[:s].to_i+3 <= @student_pages ? params[:s].to_i+(Student::PAGINATION_SIZE/2) : @student_pages) do |i| %>
+          <% @start.upto(params[:s].to_i+3 < @student_pages ? params[:s].to_i+(Student::PAGINATION_SIZE/2) : @student_pages) do |i| %>
             <% if params[:s].to_i == i-1 %>
               <li class="active">
             <% else %>
@@ -102,5 +102,6 @@
       </ul>
     </nav>
 <!-- PAGINATION ENDs HERE -->
+        <%= link_to "Add New Student", new_student_path, class: 'btn btn-sm btn-success' %>
   </div>
 </div>

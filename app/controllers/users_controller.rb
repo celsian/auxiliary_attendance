@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_admin
+
   def user_search
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = "@"
@@ -64,5 +67,11 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def require_admin
+    unless current_user.admin == true
+      redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
+    end
   end
 end

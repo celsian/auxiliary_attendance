@@ -1,4 +1,7 @@
 class StudentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_admin
+
   def index
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = ""
@@ -8,6 +11,21 @@ class StudentsController < ApplicationController
 
     @student_pages = Student.student_pages(results.first)
     @students = results.last
+  end
+
+  def new
+    @student = Student.new
+  end
+
+  def create
+    @student = Student.new(student_params)
+
+    if @student.save
+      redirect_to students_path, flash: {success: "Student was created."}
+    else
+      flash[:error] = "Error: #{@student.error_messages}"
+      render :new
+    end
   end
 
   def stats_search
@@ -47,7 +65,7 @@ class StudentsController < ApplicationController
       @student_action_word = "Enable"
       @student_action_class = "success"
     end
-  end 
+  end
 
   def update
     @student = Student.find(params[:id])
@@ -88,5 +106,11 @@ class StudentsController < ApplicationController
 
   def student_params
     params.require(:student).permit(:first_name, :last_name, :id_number)
+  end
+
+  def require_admin
+    unless current_user.admin == true
+      redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
+    end
   end
 end
