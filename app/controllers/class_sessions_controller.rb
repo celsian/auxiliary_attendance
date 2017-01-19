@@ -6,8 +6,20 @@ class ClassSessionsController < ApplicationController
     if current_user
       ClassSession.stale_classes?
 
-      @class_sessions_open = ClassSession.where(user: current_user, closed: false)
+      @class_sessions_open = ClassSession.where(user: current_user, closed: false)[0..ClassSession::PAGINATION_SIZE]
       @class_sessions_closed = ClassSession.where(user: current_user, closed: true)
+      @pages = @class_sessions_closed.count/ClassSession::PAGINATION_SIZE
+
+      if params[:cc]
+        pagination_values = ClassSession.pagination params[:cc]
+        start = pagination_values.first
+        finish = pagination_values.last
+
+        @class_sessions_closed = @class_sessions_closed[start..finish]
+      else
+        params[:cc] = 0
+        @class_sessions_closed = @class_sessions_closed[0..ClassSession::PAGINATION_SIZE]
+      end
     end
   end
 
@@ -31,11 +43,11 @@ class ClassSessionsController < ApplicationController
       render :new
     end
   end
-  
+
   def edit
     @class_session = ClassSession.find(params[:id])
   end
-  
+
   def update
     @class_session = ClassSession.find(params[:id])
     if @class_session.update_attributes(class_session_params)

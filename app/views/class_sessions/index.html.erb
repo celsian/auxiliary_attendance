@@ -28,11 +28,43 @@
           <th style="width: 50%;">Closed Sessions:</th><th>Date:</th><th>Start Time:</th><th>End Time:</th>
         </tr>
         <% @class_sessions_closed.each do |session| %>
-        <tr>
-          <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%a %m/%d/%Y") %></td><td><%= session.created_at.strftime("%l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "-" %></td>
-        </tr>
+          <tr>
+            <td><%= link_to "#{session.name}", class_session_path(session) %></td><td><%= session.created_at.strftime("%a %m/%d/%Y") %></td><td><%= session.created_at.strftime("%l:%M:%S %p") %></td><td><%= session.end_time ? session.end_time.strftime("%l:%M:%S %p") : "-" %></td>
+          </tr>
         <% end %>
       </table>
+      <!-- PAGINATION STARTS HERE -->
+      <nav>
+        <ul class="pagination">
+            <% if params[:cc].to_i == 0 %>
+              <li class="disabled"><a href="">«</a></li>
+            <% else %>
+              <li><%= link_to "«", class_sessions_path(params.merge(cc: params[:cc].to_i-1)) %></li>
+            <% end %>
+          <% if @pages %>
+            <% @start = params[:cc].to_i-(ClassSession::PAGINATION_SIZE/2-2) %>
+            <% @start.upto(params[:cc].to_i+3 < @pages ? params[:cc].to_i+(ClassSession::PAGINATION_SIZE/2) : @pages) do |i| %>
+              <% if params[:cc].to_i == i-1 %>
+                <li class="active">
+              <% else %>
+                <li>
+              <% end %>
+                <% if i > 0 %>
+                  <%= link_to i.to_s.rjust(2, '0'), class_sessions_path(params.merge(cc: i-1)) %>
+                <% end %>
+            <% end %>
+                </li>
+          <% end %>
+          <li>
+              <% if params[:cc].to_i == @pages-1 || @pages == 0 %>
+                <li class="disabled"><a href="">»</a></li>
+              <% else %>
+                <%= link_to "»", class_sessions_path(params.merge(cc: params[:cc].to_i+1)) %>
+              <% end %>
+          </li>
+        </ul>
+      </nav>
+      <!-- PAGINATION ENDs HERE -->
     </div>
   </div>
 </div>

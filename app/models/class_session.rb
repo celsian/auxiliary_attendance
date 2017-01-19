@@ -7,6 +7,8 @@ class ClassSession < ActiveRecord::Base
 
   default_scope { order("created_at desc") }
 
+  PAGINATION_SIZE = 8
+
   def close
     self.closed = true
     self.end_time = Time.now
@@ -42,5 +44,11 @@ class ClassSession < ActiveRecord::Base
     self.closed = true
     self.end_time = time
     self.save
+  end
+
+  def self.pagination page_number
+    values = []
+    values << (page_number.to_i)*ClassSession::PAGINATION_SIZE #start
+    values << (page_number.to_i+1)*ClassSession::PAGINATION_SIZE-1 #finish
   end
 end
