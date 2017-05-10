@@ -5,6 +5,7 @@ class ClassSessionStudent < ActiveRecord::Base
   validate :student_exists
   validate :class_session_open
   validate :student_unique_presence
+  validates :reason, presence: true
 
   default_scope { order("created_at desc") }
 
@@ -24,7 +25,7 @@ class ClassSessionStudent < ActiveRecord::Base
     end
   end
 
-  def student_unique_presence 
+  def student_unique_presence
     if Student.exists?(id_number: student_id_number)
       if Student.find_by(id_number: student_id_number).class_session_students.count > 0
 
@@ -41,7 +42,7 @@ class ClassSessionStudent < ActiveRecord::Base
     return Student.find_by(id_number: student_id_number)
   end
 
-  def self.director params 
+  def self.director params
     student = Student.find_by(id_number: params[:student_id_number])
     if student
       if student.class_session_students.count > 0
