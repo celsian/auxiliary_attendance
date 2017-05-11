@@ -4,6 +4,7 @@ class ClassSessionsController < ApplicationController
 
   def index
     if current_user
+      ClassSession.active_class_count > 0 ? flash[:info] = ClassSession.count_notification : ""
       ClassSession.stale_classes?
 
       @class_sessions_open = ClassSession.where(user: current_user, closed: false)[0..ClassSession::PAGINATION_SIZE]
