@@ -51,4 +51,8 @@ class ClassSession < ActiveRecord::Base
     values << (page_number.to_i)*ClassSession::PAGINATION_SIZE #start
     values << (page_number.to_i+1)*ClassSession::PAGINATION_SIZE-1 #finish
   end
+
+  def self.active_class_count
+    ClassSession.where(closed: false).count
+  end
 end

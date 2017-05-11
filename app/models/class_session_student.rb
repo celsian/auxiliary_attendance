@@ -53,6 +53,10 @@ class ClassSessionStudent < ActiveRecord::Base
     end
   end
 
+  def self.active_student_count
+    ClassSessionStudent.where(end_time: nil).count
+  end
+
   def error_messages
     messages = ""
     errors.full_messages.each do |message|

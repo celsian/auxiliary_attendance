@@ -41,6 +41,10 @@ class ClassSessionStudentsController < ApplicationController
     end
   end
 
+  def self.active_student_count
+    ClassSessionStudent.where(end_time: nil).count
+  end
+
   private
 
   def class_session_student_params
