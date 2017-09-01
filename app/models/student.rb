@@ -157,6 +157,7 @@ class Student < ActiveRecord::Base
   end
 
   def self.import(file)
+    student_list = []
     record_changes = {success: 0, failure: 0}
     CSV.foreach(file.path, headers: true) do |row|
 
@@ -166,17 +167,26 @@ class Student < ActiveRecord::Base
 
       if student.save
         record_changes[:success] += 1
+        student_list << student
       else
         record_changes[:failure] += 1
       end
     end #CSV
+
+    Student.all.each do |student|
+      unless student_list.include?(student)
+        student.enabled = false
+        student.save
+      end
+    end
+
     return record_changes
   end #def end.
 
   def self.attendance_hash
     hash = {"5+" => 0, "1-4" => 0, "0" => 0}
 
-    Student.all.each do |student|
+    Student.where(enabled: true).each do |student|
       count = student.class_sessions.where(created_at: 1.month.ago..1.second.ago).count
       if count >= 5
         hash["5+"] += 1

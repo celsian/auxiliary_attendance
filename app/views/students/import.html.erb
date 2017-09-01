@@ -8,6 +8,10 @@
         <%= image_tag "excel.png" %>
         <br>
         <br>
+        <p class="text-danger">
+          <b>ALERT:</b> Your import must contain a complete roster.<br>
+          All students not included in the csv will be disabled.
+        </p>
         <br>
         <%= form_tag import_submit_path, multipart: true do %>
           <div class="col-md-12" align="center">
