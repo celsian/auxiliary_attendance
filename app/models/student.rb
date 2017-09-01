@@ -184,36 +184,37 @@ class Student < ActiveRecord::Base
   end #def end.
 
   def self.attendance_hash
-    count = {"5+" => 0, "1-4" => 0, "0" => 0}
+    count_hash = {"5+" => 0, "1-4" => 0, "0" => 0}
     student_count = {}
 
     ClassSession.unscoped.where(created_at: 1.week.ago..1.second.ago).each do |cs|
-      cs.students.each do |student|
+      cs.students.distinct.each do |student|
         student_count[student.id_number] ||= 0
         student_count[student.id_number] += 1
       end
     end
 
-    student_count.each do |student, count|
-      if count >= 5
-        count["5+"] += 1
+    student_count.each do |k, v|
+      if v >= 5
+        count_hash["5+"] += 1
       else
-        count["1-4"] += 1
+        count_hash["1-4"] += 1
       end
     end
 
-    count["0"] = Student.where(enabled: true).count-(count["5+"]+count["1-4"])
+    count_hash["0"] = Student.where(enabled: true).count-(count_hash["5+"]+count_hash["1-4"])
+
+    count_hash
 
     # Student.where(enabled: true).each do |student|
-    #   count = student.class_sessions.where(created_at: 1.week.ago..1.second.ago).count
+    #   count = student.class_sessions.where(created_at: 1.week.ago..Time.now).count
     #   if count >= 5
-    #     count["5+"] += 1
+    #     count_hash["5+"] += 1
     #   elsif count > 0 && count <= 4
-    #     count["1-4"] += 1
+    #     count_hash["1-4"] += 1
     #   else
-    #     count["0"] += 1
+    #     count_hash["0"] += 1
     #   end
     # end
-    count
   end
 end
