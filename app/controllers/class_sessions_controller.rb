@@ -74,7 +74,7 @@ class ClassSessionsController < ApplicationController
   end
 
   def destroy
-
+    #Destroying a class session is not an option unless you also destroy the join tables as well. Realistically we have no intention of removing any data so this should remain non functional.
   end
 
   private
