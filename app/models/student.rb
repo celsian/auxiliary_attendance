@@ -186,16 +186,16 @@ class Student < ActiveRecord::Base
   def self.attendance_hash
     hash = {"5+" => 0, "1-4" => 0, "0" => 0}
 
-    Student.where(enabled: true).each do |student|
-      count = student.class_sessions.where(created_at: 1.month.ago..1.second.ago).count
-      if count >= 5
-        hash["5+"] += 1
-      elsif count > 0 && count <= 4
-        hash["1-4"] += 1
-      else
-        hash["0"] += 1
-      end
-    end
+    # Student.where(enabled: true).each do |student|
+    #   count = student.class_sessions.where(created_at: 1.month.ago..1.second.ago).count
+    #   if count >= 5
+    #     hash["5+"] += 1
+    #   elsif count > 0 && count <= 4
+    #     hash["1-4"] += 1
+    #   else
+    #     hash["0"] += 1
+    #   end
+    # end
 
     hash
   end
