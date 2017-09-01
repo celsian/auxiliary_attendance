@@ -19,6 +19,11 @@ class StatsController < ApplicationController
                                             day_end: (Time.zone.now+offset.days).end_of_day
                                           }
                                         )
+
+    @class_sessions_week = ClassSession.unscoped.where(created_at: 1.week.ago..1.second.ago)
+    @class_sessions_month = ClassSession.unscoped.where(created_at: 1.month.ago..1.second.ago)
+
+
   end
 
   private
