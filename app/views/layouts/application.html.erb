@@ -60,6 +60,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
+                <% if current_user.teacher %>
+                  <li><%= link_to "Stats", stats_path %></font></li>
+                <% end %>
                 <% if current_user.admin %>
                   <li><%= link_to "Admin", admin_index_path %></font></li>
                 <% end %>

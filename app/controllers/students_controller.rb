@@ -1,6 +1,8 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin
+  skip_before_action :require_admin, only: [:stats_search, :stats]
+  before_action :require_admin_or_teacher
 
   def index
     if params[:q] && params[:q].blank? || !params[:q]
@@ -110,6 +112,12 @@ class StudentsController < ApplicationController
 
   def require_admin
     unless current_user.admin == true
+      redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
+    end
+  end
+
+  def require_admin_or_teacher
+    unless current_user.admin == true || current_user.teacher == true
       redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
     end
   end

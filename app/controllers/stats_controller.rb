@@ -1,6 +1,6 @@
 class StatsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin
+  before_action :require_admin_or_teacher
 
   def index
 
@@ -28,8 +28,8 @@ class StatsController < ApplicationController
 
   private
 
-  def require_admin
-    unless current_user.admin == true
+  def require_admin_or_teacher
+    unless current_user.admin == true || current_user.teacher == true
       redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
     end
   end
