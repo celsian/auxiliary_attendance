@@ -33,9 +33,9 @@
           </td>
           <td class="c">
             <% if user.admin %>
-              <%= link_to "Remove Admin", remove_admin_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as an Administrator?" }, class: "btn btn-sm btn-danger" %>
+              <%= link_to '<i class="fa fa-minus-square" aria-hidden="true"></i>'.html_safe, remove_admin_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as an Administrator?" }, class: "btn btn-sm btn-danger" %>
             <% else %>
-              <%= link_to "Add Admin", add_admin_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as an Administrator?" }, class: "btn btn-sm btn-success" %>
+              <%= link_to '<i class="fa fa-plus-square" aria-hidden="true"></i>'.html_safe, add_admin_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as an Administrator?" }, class: "btn btn-sm btn-success" %>
             <% end %>
           </td>
         </tr>
@@ -53,7 +53,7 @@
     </div>
 <!-- PAGINATION STARTS HERE -->
     <nav>
-      <ul class="pagination">    
+      <ul class="pagination">
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
@@ -103,9 +103,9 @@
             </td>
             <td class="c">
               <% if user.admin %>
-                <%= link_to "Remove Admin", remove_admin_path(user.id, params[:q] = "@"), data: { confirm: "Are you sure you want to remove #{user.email} as an Administrator?" }, class: "btn btn-sm btn-danger" %>
+                <%= link_to '<i class="fa fa-minus-square" aria-hidden="true"></i>'.html_safe, remove_admin_path(user.id, params[:q] = "@"), data: { confirm: "Are you sure you want to remove #{user.email} as an Administrator?" }, class: "btn btn-sm btn-danger" %>
               <% else %>
-              
+
               <% end %>
             </td>
           </tr>
@@ -114,7 +114,7 @@
       </div>
 <!-- PAGINATION STARTS HERE -->
       <nav align="right">
-        <ul class="pagination">    
+        <ul class="pagination">
             <% if params[:a].to_i == 0 %>
               <li class="disabled"><a href="">«</a></li>
             <% else %>

@@ -22,7 +22,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th width=70%>E-Mail</th><th>Teacher</th>
+            <th width=65%>E-Mail</th><th>Teacher</th><th>Peer</th>
           </tr>
         </thead>
     <% if @users.length > 0 %>
@@ -33,9 +33,16 @@
           </td>
           <td class="c">
             <% if user.teacher %>
-              <%= link_to "Remove Teacher", remove_teacher_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as a Teacher?" }, class: "btn btn-sm btn-danger" %>
+              <%= link_to '<i class="fa fa-minus-square" aria-hidden="true"></i>'.html_safe, remove_teacher_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as a Teacher?" }, class: "btn btn-sm btn-danger" %>
             <% else %>
-              <%= link_to "Add Teacher", add_teacher_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as a Teacher?" }, class: "btn btn-sm btn-success" %>
+              <%= link_to '<i class="fa fa-plus-square" aria-hidden="true"></i>'.html_safe, add_teacher_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as a Teacher?" }, class: "btn btn-sm btn-success" %>
+            <% end %>
+          </td>
+          <td class="c">
+            <% if user.peer_tutor %>
+              <%= link_to '<i class="fa fa-minus-square" aria-hidden="true"></i>'.html_safe, remove_peer_tutor_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as a Peer Tutor?" }, class: "btn btn-sm btn-danger" %>
+            <% else %>
+              <%= link_to '<i class="fa fa-plus-square" aria-hidden="true"></i>'.html_safe, add_peer_tutor_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as a Peer Tutor?" }, class: "btn btn-sm btn-success" %>
             <% end %>
           </td>
         </tr>
@@ -53,7 +60,7 @@
     </div>
 <!-- PAGINATION STARTS HERE -->
     <nav>
-      <ul class="pagination">    
+      <ul class="pagination">
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
@@ -92,29 +99,36 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th width=70%>E-Mail</th><th>Teacher</th>
+              <th width=70%>E-Mail</th><th>Teacher</th><th>Peer</th>
             </tr>
           </thead>
 
           <% @teachers.each do |user| %>
             <tr>
-            <td>
-              <%= user.formatted_email %>
-            </td>
-            <td class="c">
-              <% if user.teacher %>
-                <%= link_to "Remove Teacher", remove_teacher_path(user.id, params[:q] = "@"), data: { confirm: "Are you sure you want to remove #{user.email} as a Teacher?" }, class: "btn btn-sm btn-danger" %>
-              <% else %>
-              
-              <% end %>
-            </td>
-          </tr>
+              <td>
+                <%= user.formatted_email %>
+              </td>
+              <td class="c">
+                <% if user.teacher %>
+                  <%= link_to '<i class="fa fa-minus-square" aria-hidden="true"></i>'.html_safe, remove_teacher_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as a Teacher?" }, class: "btn btn-sm btn-danger" %>
+                <% else %>
+                  <%= link_to '<i class="fa fa-plus-square" aria-hidden="true"></i>'.html_safe, add_teacher_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as a Teacher?" }, class: "btn btn-sm btn-success" %>
+                <% end %>
+              </td>
+              <td class="c">
+                <% if user.peer_tutor %>
+                  <%= link_to '<i class="fa fa-minus-square" aria-hidden="true"></i>'.html_safe, remove_peer_tutor_path(user.id, params[:q]), data: { confirm: "Are you sure you want to remove #{user.email} as a Peer Tutor?" }, class: "btn btn-sm btn-danger" %>
+                <% else %>
+                  <%= link_to '<i class="fa fa-plus-square" aria-hidden="true"></i>'.html_safe, add_peer_tutor_path(user.id, params[:q]), data: { confirm: "Are you sure you want to add #{user.email} as a Peer Tutor?" }, class: "btn btn-sm btn-success" %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
         </table>
       </div>
 <!-- PAGINATION STARTS HERE -->
       <nav align="right">
-        <ul class="pagination">    
+        <ul class="pagination">
             <% if params[:t].to_i == 0 %>
               <li class="disabled"><a href="">«</a></li>
             <% else %>

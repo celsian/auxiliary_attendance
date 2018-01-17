@@ -41,6 +41,28 @@ class AdminController < ApplicationController
     end
   end
 
+  def add_peer_tutor
+    user = User.find(params[:id])
+    user.peer_tutor = true
+    if user.save
+      redirect_to teacher_editor_path(q: params[:q]), flash: { success: "#{user.email} is now a Peer Tutor." }
+    else
+      flash[:error] = "Error: There was a problem adding the rights."
+      render :teacher_editor
+    end
+  end
+
+  def remove_peer_tutor
+    user = User.find(params[:id])
+    user.peer_tutor = false
+    if user.save
+      redirect_to teacher_editor_path(q: params[:q]), flash: { success: "#{user.email} is no longer a Peer Tutor." }
+    else
+      flash[:error] = "Error: There was a problem adding the rights."
+      render :teacher_editor
+    end
+  end
+
   def admin_editor
     if params[:q] && params[:q].blank? || !params[:q]
       params[:q] = "@"

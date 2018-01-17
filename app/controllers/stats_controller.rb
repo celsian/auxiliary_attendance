@@ -29,7 +29,7 @@ class StatsController < ApplicationController
   private
 
   def require_admin_or_teacher
-    unless current_user.admin == true || current_user.teacher == true
+    unless current_user.admin == true || (current_user.teacher == true && current_user.peer_tutor == false )
       redirect_to root_path, flash: { error: "You are not authorized to perform that action." }
     end
   end

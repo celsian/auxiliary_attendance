@@ -16,6 +16,8 @@ AuxiliaryAttendance::Application.routes.draw do
   get "/admin/teacher_editor", to: "admin#teacher_editor", as: "teacher_editor"
   get "/admin/user/:id/add_teacher/:q", to: "admin#add_teacher", as: "add_teacher"
   get "/admin/user/:id/remove_teacher/:q", to: "admin#remove_teacher", as: "remove_teacher"
+  get "/admin/user/:id/add_peer_tutor/:q", to: "admin#add_peer_tutor", as: "add_peer_tutor"
+  get "/admin/user/:id/remove_peer_tutor/:q", to: "admin#remove_peer_tutor", as: "remove_peer_tutor"
   get "/admin/admin_editor", to: "admin#admin_editor", as: "admin_editor"
   get "/admin/user/:id/add_admin/:q", to: "admin#add_admin", as: "add_admin"
   get "/admin/user/:id/remove_admin/:q", to: "admin#remove_admin", as: "remove_admin"
