@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails'
 gem 'thin'
 
 gem "pg"
@@ -20,7 +20,7 @@ gem 'jquery-turbolinks'
 gem "chartkick"
 gem 'groupdate'
 gem 'eventmachine', '1.2.0.1'
-gem 'json', '1.8.3'
+gem 'json'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
