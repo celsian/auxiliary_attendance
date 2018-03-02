@@ -157,8 +157,10 @@ class Student < ActiveRecord::Base
   end
 
   def self.import(file)
+    enabled_students = Student.where(enabled: "1")
     student_list = []
     record_changes = {success: 0, failure: 0}
+
     CSV.foreach(file.path, headers: true) do |row|
 
       student = find_by(id_number: row["id_number"]) || Student.new
@@ -173,10 +175,12 @@ class Student < ActiveRecord::Base
       end
     end #CSV
 
-    Student.all.each do |student|
-      unless student_list.include?(student)
-        student.enabled = false
-        student.save
+    disable_students = enabled_students - student_list
+
+    if disable_students.length > 0
+      disable_students.each do |student|
+          student.enabled = false
+          student.save
       end
     end
 
