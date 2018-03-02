@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-6">
     <h3><B>Search for Students:</B></h3>
-    <%= form_tag students_stat_search_path, :method => :get, :class => "form-search", :enforce_utf8 => false do %>
-      <%= text_field_tag :q, '',size: 30, autofocus: true %>
+    <%= form_tag students_stat_search_path, :method => :get, :class => "form-inline", :enforce_utf8 => false do %>
+      <%= text_field_tag :q, '',size: 30, :class => "form-control", autofocus: true %>
       <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
     <% end %>
   </div>
@@ -56,7 +56,7 @@
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", students_stat_search_path(params.slice(:q).merge(s: params[:s].to_i-1)) %></li>
+            <li><%= link_to "«", students_stat_search_path(params.slice(:q).merge(s: params[:s].to_i-1).permit!) %></li>
           <% end %>
         <% if @student_pages %>
           <% @start = params[:s].to_i-(Student::PAGINATION_SIZE/2-2) %>
@@ -67,7 +67,7 @@
               <li>
             <% end %>
               <% if i > 0 %>
-                <%= link_to i.to_s.rjust(2, '0'), students_stat_search_path(params.slice(:q).merge(s: i-1)) %>
+                <%= link_to i.to_s.rjust(2, '0'), students_stat_search_path(params.slice(:q).merge(s: i-1).permit!) %>
               <% end %>
           <% end %>
               </li>
@@ -76,7 +76,7 @@
             <% if params[:s].to_i == @student_pages-1 || @student_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", students_stat_search_path(params.slice(:q).merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", students_stat_search_path(params.slice(:q).merge(s: params[:s].to_i+1).permit!) %>
             <% end %>
         </li>
       </ul>

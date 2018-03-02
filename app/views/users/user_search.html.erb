@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-6">
     <h3><B>Search for Users by E-Mail:</B></h3>
-    <%= form_tag user_search_path, :method => :get, :class => "form-search" do %>
-      <%= text_field_tag :q, '',size: 30, autofocus: true %>
+    <%= form_tag user_search_path, :method => :get, :class => "form-inline" do %>
+      <%= text_field_tag :q, '',size: 30, :class => "form-control", autofocus: true %>
       <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %>
     <% end %>
   </div>
@@ -53,7 +53,7 @@
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", user_search_path(params.slice(:q).merge(s: params[:s].to_i-1)) %></li>
+            <li><%= link_to "«", user_search_path(params.slice(:q).merge(s: params[:s].to_i-1).permit!) %></li>
           <% end %>
         <% if @user_pages %>
           <% 1.upto(@user_pages) do |i| %>
@@ -62,7 +62,7 @@
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, user_search_path(params.slice(:q).merge(s: i-1)) %>
+              <%= link_to i, user_search_path(params.slice(:q).merge(s: i-1).permit!) %>
           <% end %>
               </li>
         <% end %>
@@ -70,7 +70,7 @@
             <% if params[:s].to_i == @user_pages-1 || @user_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", user_search_path(params.slice(:q).merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", user_search_path(params.slice(:q).merge(s: params[:s].to_i+1).permit!) %>
             <% end %>
         </li>
       </ul>

@@ -15,9 +15,9 @@
   </div>
   <div class="col-sm-1">
     <% if params[:enabled] == "0" %>
-      <%= link_to "Show Enabled Students", students_path(params.slice(:q).merge(enabled: "1")), class: 'btn btn-sm btn-success' %>
+      <%= link_to "Show Enabled Students", students_path(params.slice(:q).merge(enabled: "1").permit!), class: 'btn btn-sm btn-success' %>
     <% else %>
-      <%= link_to "Show Disabled Students", students_path(params.slice(:q).merge(enabled: "0")), class: 'btn btn-sm btn-danger' %>
+      <%= link_to "Show Disabled Students", students_path(params.slice(:q).merge(enabled: "0").permit!), class: 'btn btn-sm btn-danger' %>
     <% end %>
   </div>
 </div>
@@ -76,7 +76,7 @@
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", students_path(params.slice(:q, :enabled).merge(s: params[:s].to_i-1)) %></li>
+            <li><%= link_to "«", students_path(params.slice(:q, :enabled).merge(s: params[:s].to_i-1).permit!) %></li>
           <% end %>
         <% if @student_pages %>
           <% @start = params[:s].to_i-(Student::PAGINATION_SIZE/2-2) %>
@@ -87,7 +87,7 @@
               <li>
             <% end %>
               <% if i > 0 %>
-                <%= link_to i.to_s.rjust(2, '0'), students_path(params.slice(:q, :enabled).merge(s: i-1)) %>
+                <%= link_to i.to_s.rjust(2, '0'), students_path(params.slice(:q, :enabled).merge(s: i-1).permit!) %>
               <% end %>
           <% end %>
               </li>
@@ -96,7 +96,7 @@
             <% if params[:s].to_i == @student_pages-1 || @student_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", students_path(params.slice(:q, :enabled).merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", students_path(params.slice(:q, :enabled).merge(s: params[:s].to_i+1).permit!) %>
             <% end %>
         </li>
       </ul>
