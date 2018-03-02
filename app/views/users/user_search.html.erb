@@ -49,11 +49,11 @@
     </div>
 <!-- PAGINATION STARTS HERE -->
     <nav>
-      <ul class="pagination">    
+      <ul class="pagination">
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", user_search_path(params.merge(s: params[:s].to_i-1)) %></li>
+            <li><%= link_to "«", user_search_path(params.slice(:q).merge(s: params[:s].to_i-1)) %></li>
           <% end %>
         <% if @user_pages %>
           <% 1.upto(@user_pages) do |i| %>
@@ -62,7 +62,7 @@
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, user_search_path(params.merge(s: i-1)) %>
+              <%= link_to i, user_search_path(params.slice(:q).merge(s: i-1)) %>
           <% end %>
               </li>
         <% end %>
@@ -70,7 +70,7 @@
             <% if params[:s].to_i == @user_pages-1 || @user_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", user_search_path(params.merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", user_search_path(params.slice(:q).merge(s: params[:s].to_i+1)) %>
             <% end %>
         </li>
       </ul>

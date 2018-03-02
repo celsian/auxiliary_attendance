@@ -57,7 +57,7 @@
           <% if params[:s].to_i == 0 %>
             <li class="disabled"><a href="">«</a></li>
           <% else %>
-            <li><%= link_to "«", admin_editor_path(params.merge(s: params[:s].to_i-1)) %></li>
+            <li><%= link_to "«", admin_editor_path(params.slice(:q, :a).merge(s: params[:s].to_i-1)) %></li>
           <% end %>
         <% if @user_pages %>
           <% 1.upto(@user_pages) do |i| %>
@@ -66,7 +66,7 @@
             <% else %>
               <li>
             <% end %>
-              <%= link_to i, admin_editor_path(params.merge(s: i-1)) %>
+              <%= link_to i, admin_editor_path(params.slice(:q, :a).merge(s: i-1)) %>
           <% end %>
               </li>
         <% end %>
@@ -74,7 +74,7 @@
             <% if params[:s].to_i == @user_pages-1 || @user_pages == 0 %>
               <li class="disabled"><a href="">»</a></li>
             <% else %>
-              <%= link_to "»", admin_editor_path(params.merge(s: params[:s].to_i+1)) %>
+              <%= link_to "»", admin_editor_path(params.slice(:q, :a).merge(s: params[:s].to_i+1)) %>
             <% end %>
         </li>
       </ul>
@@ -118,7 +118,7 @@
             <% if params[:a].to_i == 0 %>
               <li class="disabled"><a href="">«</a></li>
             <% else %>
-              <li><%= link_to "«", admin_editor_path(params.merge(a: params[:a].to_i-1)) %></li>
+              <li><%= link_to "«", admin_editor_path(params.slice(:q, :s).merge(a: params[:a].to_i-1)) %></li>
             <% end %>
           <% if @admin_pages %>
             <% 1.upto(@admin_pages) do |i| %>
@@ -127,7 +127,7 @@
               <% else %>
                 <li>
               <% end %>
-                <%= link_to i, admin_editor_path(params.merge(a: i-1)) %>
+                <%= link_to i, admin_editor_path(params.slice(:q, :s).merge(a: i-1)) %>
             <% end %>
                 </li>
           <% end %>
@@ -135,7 +135,7 @@
               <% if params[:a].to_i == @admin_pages-1 || @admin_pages == 0 %>
                 <li class="disabled"><a href="">»</a></li>
               <% else %>
-                <%= link_to "»", admin_editor_path(params.merge(a: params[:a].to_i+1)) %>
+                <%= link_to "»", admin_editor_path(params.slice(:q, :s).merge(a: params[:a].to_i+1)) %>
               <% end %>
           </li>
         </ul>

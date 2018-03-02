@@ -39,7 +39,7 @@
             <% if params[:cc].to_i == 0 %>
               <li class="disabled"><a href="">«</a></li>
             <% else %>
-              <li><%= link_to "«", class_sessions_path(params.merge(cc: params[:cc].to_i-1)) %></li>
+              <li><%= link_to "«", class_sessions_path(params.slice().merge(cc: params[:cc].to_i-1)) %></li>
             <% end %>
           <% if @pages %>
             <% @start = params[:cc].to_i-(ClassSession::PAGINATION_SIZE/2-2) %>
@@ -50,7 +50,7 @@
                 <li>
               <% end %>
                 <% if i > 0 %>
-                  <%= link_to i.to_s.rjust(2, '0'), class_sessions_path(params.merge(cc: i-1)) %>
+                  <%= link_to i.to_s.rjust(2, '0'), class_sessions_path(params.slice().merge(cc: i-1)) %>
                 <% end %>
             <% end %>
                 </li>
@@ -59,7 +59,7 @@
               <% if params[:cc].to_i == @pages-1 || @pages == 0 %>
                 <li class="disabled"><a href="">»</a></li>
               <% else %>
-                <%= link_to "»", class_sessions_path(params.merge(cc: params[:cc].to_i+1)) %>
+                <%= link_to "»", class_sessions_path(params.slice().merge(cc: params[:cc].to_i+1)) %>
               <% end %>
           </li>
         </ul>
