@@ -6,7 +6,7 @@
       </P>
     </div>
     <div class="col-md-3" style="text-align:right;font-size:x-large;">
-      <span style="font-size:small; text-align: middle;">Student Count: <%=@class_session.students.count %></span>
+      <span style="font-size:x-small; text-align: middle;">Student Count: <%=@class_session.students.count %></span>
       <% if !@class_session.closed %>
       <%= link_to "Close Session", close_session_path(), class: "btn btn-primary", data: { confirm: "Are you sure you want to close this class session?" } %>
       <% end %>
@@ -41,11 +41,23 @@
     <div class="col-md-12">
       <table class="table table-striped">
         <tr>
-          <th>Student:</th><th>Reason:</th><th>Arrival Time:</th><th>Departure Time:</th>
+          <th>Student:</th>
+          <th>Reason:</th>
+          <th>Arrival Time:</th>
+          <th>Departure Time:</th>
+          <% if @class_session.closed %>
+            <th>Session Management</th>
+          <% end %>
         </tr>
         <% @class_session.class_session_students_sorted.each do |class_session_student| %>
           <tr>
-            <td><%= class_session_student.student.last_name + ", " + class_session_student.student.first_name %></td><td><%= class_session_student.reason %></td><td><%= class_session_student.start_time.strftime("%l:%M%P") %></td><td><%= class_session_student.end_time ? class_session_student.end_time.strftime("%l:%M%P") : "Present" %></td>
+            <td><%= class_session_student.student.last_name + ", " + class_session_student.student.first_name %></td>
+            <td><%= class_session_student.reason %></td>
+            <td><%= class_session_student.start_time.strftime("%l:%M%P") %></td>
+            <td><%= class_session_student.end_time ? class_session_student.end_time.strftime("%l:%M%P") : "Present" %></td>
+            <% if @class_session.closed %>
+              <td><%= link_to 'Remove', class_session_student_path(class_session_student), data: {:confirm => "Are you sure you want to remove #{class_session_student.student.first_name} #{class_session_student.student.last_name} from the session?"}, :method => :delete %></td>
+            <% end %>
           </tr>
         <% end %>
       </table>

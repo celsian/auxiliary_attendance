@@ -45,6 +45,22 @@ class ClassSessionStudentsController < ApplicationController
     ClassSessionStudent.where(end_time: nil).count
   end
 
+  def destroy
+    #in the event a scholar logs another scholar in, teachers can remove the fake students session after the class is closed.
+    @class_session_student = ClassSessionStudent.find(params[:id])
+    @student = @class_session_student.student
+    @class_session = @class_session_student.class_session
+
+    if @class_session_student.destroy
+      flash[:success] = "#{@student.first_name} #{@student.last_name} has been removed from the session."
+      redirect_to @class_session
+    else
+      flash[:error] = "Error: #{@class_session_student.error_messages}"
+      redirect_to @class_session
+    end
+
+  end
+
   private
 
   def class_session_student_params

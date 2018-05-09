@@ -41,6 +41,7 @@ gem 'jquery-rails'
 gem 'jbuilder'
 
 group :test, :development do
+  gem 'pry'
   gem 'capybara'
   gem 'rspec-rails'
   gem 'factory_bot_rails'

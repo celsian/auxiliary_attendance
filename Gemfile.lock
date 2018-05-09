@@ -257,6 +257,7 @@ DEPENDENCIES
   jquery-turbolinks
   json
   pg
+  pry
   rails (= 5.1.5)
   rspec-rails
   sass-rails
