@@ -29,13 +29,13 @@
       <% @students.each do |student| %>
         <tr class='clickable-row' data-link="<%= student_stats_path(student) %>">
           <td>
-            <%= link_to student.first_name, student_stats_path(student) %>
+            <%= link_to student.first_name, student_stats_path(student), data: { turbolinks: false } %>
           </td>
           <td>
-            <%= link_to student.last_name, student_stats_path(student) %>
+            <%= link_to student.last_name, student_stats_path(student), data: { turbolinks: false } %>
           </td>
           <td>
-            <%= link_to student.id_number, student_stats_path(student) %>
+            <%= link_to student.id_number, student_stats_path(student), data: { turbolinks: false } %>
           </td>
         </tr>
       <% end %>
