@@ -12,10 +12,6 @@ gem 'devise'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-#Gems for workers:
-# gem 'sidekiq'
-# gem 'sinatra', '>= 1.3.0', :require => nil
-
 #For statistical analysis
 gem "chartkick"
 gem 'groupdate'
@@ -51,8 +47,4 @@ end
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
-end
-
-group :production do
-
 end
