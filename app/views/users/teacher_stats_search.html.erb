@@ -29,7 +29,7 @@
       <% @teachers.each do |teacher| %>
         <tr data-link="<%= teacher_stats_path(teacher) %>">
           <td>
-            <%= teacher.email %>
+            <%= link_to teacher.email, teacher_stats_path(teacher), data: { turbolinks: false } %>
           </td>
         </tr>
       <% end %>

@@ -15,7 +15,7 @@
         <h3 class="panel-title" align="center">
             <div class="dropdown">
               <% if (@current_month-1.month).between?(@months.last, @months.first) %>
-                <%= link_to "«", teacher_stats_path(m: @current_month-1.month), class: "btn btn-default" %>
+                <%= link_to "«", teacher_stats_path(m: @current_month-1.month), class: "btn btn-default", data: { turbolinks: false } %>
               <% else %>
                 <button class="btn disabled">«</button>
               <% end %>
@@ -24,14 +24,14 @@
                 <span class="caret"></span>
               </button>
               <% if (@current_month+1.month).between?(@months.last, @months.first) %>
-                <%= link_to "»", teacher_stats_path(m: @current_month+1.month), class: "btn btn-default" %>
+                <%= link_to "»", teacher_stats_path(m: @current_month+1.month), class: "btn btn-default", data: { turbolinks: false } %>
               <% else %>
                 <button class="btn disabled">»</button>
               <% end %>
 
               <ul class="dropdown-menu centerDropdown" aria-labelledby="dropdownMenu2">
                 <% @months.each do |m| %>
-                  <li><%= link_to m.strftime("%B %Y"), teacher_stats_path(m: m) %></li>
+                  <li><%= link_to m.strftime("%B %Y"), teacher_stats_path(m: m), data: { turbolinks: false } %></li>
                 <% end %>
               </ul>
             </div>
