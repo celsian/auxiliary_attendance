@@ -18,7 +18,7 @@
 //= require turbolinks
 //= require_tree .
 
-Turbolinks.enableTransitionCache();
+// Turbolinks.enableTransitionCache();//Disabled as it doesnt work with Turbolinks 5
 
 jQuery(function($) {
   $("tr[data-link]").click(function() {

@@ -4,7 +4,7 @@
     <small><%= "#{@student.id_number}" %></small></h2>
   </div>
   <div class="col-md-6" align="right">
-    
+
   </div>
 </div>
 <br>
@@ -16,7 +16,7 @@
 
             <div class="dropdown">
               <% if (@current_month-1.month).between?(@months.last, @months.first) %>
-                <%= link_to "«", student_stats_path(m: @current_month-1.month), class: "btn btn-default" %>
+                <%= link_to "«", student_stats_path(m: @current_month-1.month), class: "btn btn-default", data: { turbolinks: false } %>
               <% else %>
                 <button class="btn disabled">«</button>
               <% end %>
@@ -25,14 +25,14 @@
                 <span class="caret"></span>
               </button>
               <% if (@current_month+1.month).between?(@months.last, @months.first) %>
-                <%= link_to "»", student_stats_path(m: @current_month+1.month), class: "btn btn-default" %>
+                <%= link_to "»", student_stats_path(m: @current_month+1.month), class: "btn btn-default", data: { turbolinks: false } %>
               <% else %>
                 <button class="btn disabled">»</button>
               <% end %>
-              
+
               <ul class="dropdown-menu centerDropdown" aria-labelledby="dropdownMenu2">
                 <% @months.each do |m| %>
-                  <li><%= link_to m.strftime("%B %Y"), student_stats_path(m: m) %></li>
+                  <li><%= link_to m.strftime("%B %Y"), student_stats_path(m: m), data: { turbolinks: false } %></li>
                 <% end %>
               </ul>
             </div>
@@ -82,7 +82,7 @@
           </td>
         <% end %>
         <td>
-          <%= "#{@weekly_times[i][:hours]} hr #{@weekly_times[i][:minutes]} min" %> 
+          <%= "#{@weekly_times[i][:hours]} hr #{@weekly_times[i][:minutes]} min" %>
         </td>
       </tr>
       <% end %>
