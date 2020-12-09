@@ -166,6 +166,7 @@ class Student < ActiveRecord::Base
       student = find_by(id_number: row["id_number"]) || Student.new
 
       student.attributes = row.to_hash.slice("id_number", "first_name", "last_name")
+      student.enabled = true
 
       if student.save
         record_changes[:success] += 1
