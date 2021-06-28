@@ -52,14 +52,14 @@
 <div class="row">
   <div class="col-md-12" align="center">
     <H2><b>Unique Attendance:</b></H2>
-    Last week: <%= Student.unique_students_last_week %> This week: <%= Student.unique_students_this_week %> 
+    Last week: <%= Student.unique_students_last_week %> This week: <%= Student.unique_students_this_week %>
+    <HR>
   </div>
 </div>
 <br>
 <div class="row">
   <div class="col-md-12" align="center">
     <H2><b>General Statistics:</b></H2>
-    <HR>
     Session count by day past 30 days:
     <%= line_chart @class_sessions_month.group_by_day(:created_at, format: "%B %d, %Y").count %>
   </div>
