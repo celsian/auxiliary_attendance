@@ -222,4 +222,30 @@ class Student < ActiveRecord::Base
     #   end
     # end
   end
+
+  def self.unique_students_last_week
+    student_count = {}
+
+    ClassSession.unscoped.where(created_at: 1.week.ago.beginning_of_week..1.week.ago.end_of_week).each do |cs|
+      cs.students.distinct.each do |student|
+        student_count[student.id_number] ||= 0
+        student_count[student.id_number] += 1
+      end
+    end
+
+    student_count.length
+  end
+
+  def self.unique_students_this_week
+    student_count = {}
+
+    ClassSession.unscoped.where(created_at: 1.second.ago.beginning_of_week..1.second.ago.end_of_week).each do |cs|
+      cs.students.distinct.each do |student|
+        student_count[student.id_number] ||= 0
+        student_count[student.id_number] += 1
+      end
+    end
+
+    student_count.length
+  end
 end

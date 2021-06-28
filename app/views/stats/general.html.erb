@@ -48,12 +48,7 @@
   </div>
   </div>
 </div>
-
-
-
-
-
-<BR><BR><BR>
+<BR>
 <div class="row">
   <div class="col-md-12" align="center">
     <H2><b>General Statistics:</b></H2>
@@ -77,3 +72,10 @@
     <%= bar_chart Student.attendance_hash %>
   </div>
 </div>
+<br>
+<div class="row">
+  <div class="col-md-12" align="center">
+    <H2><b>Unique Attendance:</b></H2>
+    Last week: <%= Student.unique_students_last_week %> This week: <%= Student.unique_students_this_week %> 
+  </div>
+</div>  
